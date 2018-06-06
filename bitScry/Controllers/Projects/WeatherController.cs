@@ -61,7 +61,7 @@ namespace bitScry.Controllers.Projects
             {
                 foreach (Period3Hourly period in forecastLocation.Period)
                 {
-                    if (DateTime.Parse(period.Value) == DateTime.Today)
+                    if (DateTime.Parse(period.Value).Date == DateTime.Today.Date)
                     {
                         WeatherSummary weatherSummary = new WeatherSummary();
                         weatherSummary.ForecastDay = DateTime.Parse(period.Value);

@@ -26,18 +26,22 @@
             <div class="x_content">
                 <div class="jumbotron">
                     <div class="row">
-                        <div class="col-xs-12 weather-main thumbnail btn" id="summary_@weatherSummaries[0].ForecastDay.ToString("yyyyMMdd")">
+                        <div class="col-lg-12 weather-main img-thumbnail btn" id="summary_@weatherSummaries[0].ForecastDay.ToString("yyyyMMdd")">
                             <div class="row">
-                                <div class="col-xs-9">
+                                <div class="col-lg-9 col-md-6 col-sm-6 col-xs-6">
                                     Today
                                     <i class="wi @weatherSummaries[0].Icon.Icon wi-fw"></i>
                                 </div>
-                                <div class="col-xs-3 weather-main-temperature">
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 weather-main-temperature">
                                     <div class="row">
-                                        @weatherSummaries[0].MaxTemperature &deg;C
+                                        <div class="col-lg-12">
+                                            @weatherSummaries[0].MaxTemperature &deg;C
+                                        </div>
                                     </div>
                                     <div class="row">
-                                        @weatherSummaries[0].MinTemperature &deg;C
+                                        <div class="col-lg-12">
+                                            @weatherSummaries[0].MinTemperature &deg;C
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -49,11 +53,11 @@
                         @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[3] })
                         @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[4] })
                     </div>
-                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[0] })
+                    @*@await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[0] })
                     @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[1] })
                     @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[2] })
                     @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[3] })
-                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[4] })
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[4] })*@
                 </div>
                 <p>
                     <button id="locationButton" type="button" class="btn btn-default" onclick="getLocation()">Use Actual Location</button>
