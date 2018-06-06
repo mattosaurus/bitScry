@@ -46,7 +46,7 @@ var deps = {
         "dist/**/*": ""
     },
     "weather-icons": {
-        "css/*": ""
+        "**/*": ""
     }
 };
 
