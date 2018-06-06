@@ -1,0 +1,26 @@
+﻿@using bitScry.Models.Projects.Weather;
+@using MetOfficeDataPoint.Models;
+@using bitScry.AppCode.Projects;
+
+@model WeatherSummary
+
+<div class="col-md-3 col-xs-6 weather-daily thumbnail btn" id="summary_@Model.ForecastDay.ToString("yyyyMMdd")">
+    <div class="row">
+        <div class="col-xs-12">
+            @Model.ForecastDay.ToString("ddd")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <i class="wi @Model.Icon.Icon wi-fw"></i>
+        </div>
+        <div class="col-xs-6 weather-daily-temperature">
+            <div class="row">
+                @Model.MaxTemperature &deg;C
+            </div>
+            <div class="row">
+                @Model.MinTemperature &deg;C
+            </div>
+        </div>
+    </div>
+</div>

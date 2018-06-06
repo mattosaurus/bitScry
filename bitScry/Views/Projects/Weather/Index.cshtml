@@ -1,0 +1,126 @@
+﻿@using bitScry.Models.Projects.Weather;
+@using Microsoft.Extensions.Primitives;
+@using Microsoft.AspNetCore.Http;
+
+@section head {
+    <link href="~/vendor/weather-icons/weather-icons.css" rel="stylesheet" />
+    <link href="~/vendor/weather-icons/weather-icons-wind.css" rel="stylesheet" />
+}
+
+@{
+    ViewData["Title"] = "Weather";
+}
+
+@{
+    List<WeatherSummary> weatherSummaries = (List<WeatherSummary>)ViewData["WeatherSummaries"];
+    MetOfficeDataPoint.Models.Location site = (MetOfficeDataPoint.Models.Location)ViewData["Site"];
+    FreeGeoIPCore.Models.Location location = (FreeGeoIPCore.Models.Location)ViewData["Location"];
+}
+
+<div class="row">
+    <div class="clearfix"></div>
+    <div class="col-lg-6 col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-xs-12 weather-main thumbnail btn" id="summary_@weatherSummaries[0].ForecastDay.ToString("yyyyMMdd")">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    Today
+                                    <i class="wi @weatherSummaries[0].Icon.Icon wi-fw"></i>
+                                </div>
+                                <div class="col-xs-3 weather-main-temperature">
+                                    <div class="row">
+                                        @weatherSummaries[0].MaxTemperature &deg;C
+                                    </div>
+                                    <div class="row">
+                                        @weatherSummaries[0].MinTemperature &deg;C
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[1] })
+                        @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[2] })
+                        @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[3] })
+                        @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[4] })
+                    </div>
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[0] })
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[1] })
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[2] })
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[3] })
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[4] })
+                </div>
+                <p>
+                    <button id="locationButton" type="button" class="btn btn-default" onclick="getLocation()">Use Actual Location</button>
+                    <button id="detailsButton" type="button" class="btn btn-default" onclick="showDetails()">Show Details</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-12 hidden" id="details">
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2>IP Details</h2>
+                            <p>
+                                IP Address: @location.Ip<br />
+                                City: @location.City<br />
+                                Region: @location.RegionName<br />
+                                Country: @location.CountryName
+                            </p>
+                            <h2>Weather Station Details</h2>
+                            <p>
+                                Name: @site.Name<br />
+                                Area: @site.UnitaryAuthorityArea
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $('div[id^="summary_').click(function (e) {
+            // Remove active button status from all buttons
+            $('.btn').removeClass('active');
+            // Set clicked button active
+            $(this).addClass('active');
+            // Get ID of linked forecast
+            var forecastId = $(this).attr('id').replace('summary', 'forecast');
+            // Hide all forecasts
+            $('div[id^="forecast_').addClass('hidden');
+            // Show selected forecast
+            $('#' + forecastId).removeClass('hidden');
+        });
+    </script>
+    <script type="text/javascript">
+        function showDetails() {
+            $('#details').removeClass('hidden');
+        };
+    </script>
+    <script type="text/javascript">
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(useLocation);
+            }
+        };
+
+        function useLocation(position) {
+            window.location.replace('?longitude=' + position.coords.longitude + '&latitude=' + position.coords.latitude);
+        };
+    </script>
+}

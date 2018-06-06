@@ -1,0 +1,30 @@
+﻿@using bitScry.Models.Projects.Weather;
+@using MetOfficeDataPoint.Models;
+@using bitScry.AppCode.Projects;
+
+@model WeatherSummary
+
+<div class="row hidden" id="forecast_@Model.ForecastDay.ToString("yyyyMMdd")">
+    <div class="col-xs-12 weather-detailed thumbnail">
+        @{
+            foreach (Rep3Hourly rep in Model.Forecasts)
+            {
+                <div class="row">
+                    <div class="col-xs-3">
+                        @((rep.MinutesAfterMidnight / 60).ToString() + ":00")
+                    </div>
+                    <div class="col-xs-2">
+                        <i class="wi @Weather.GetWeatherIcon(rep.WeatherType).Icon wi-fw"></i>
+                    </div>
+                    <div class="col-xs-3">
+                        @rep.Temperature &deg;C
+                    </div>
+                    <div class="col-xs-4">
+                        <i class="wi wi-wind wi-from-@rep.WindDirection.ToLower() wi-fw"></i>
+                        @(rep.WindSpeed)mph
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

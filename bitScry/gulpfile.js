@@ -44,6 +44,9 @@ var deps = {
     },
     "popper.js": {
         "dist/**/*": ""
+    },
+    "weather-icons": {
+        "css/*": ""
     }
 };
 
