@@ -1,17 +1,99 @@
-﻿@{
+﻿@using bitScry.Models.Home;
+
+@section head {
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+}
+
+@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+@{
+    string contactMessage = (string)ViewData["ContactMessage"];
+}
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+@model ContactForm
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>@ViewData["Title"].</h2>
+        @if (string.IsNullOrEmpty(contactMessage))
+        {
+        <form asp-controller="Home" asp-action="Contact" method="post" id="contact-form" role="form" class="needs-validation" novalidate>
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <fieldset>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label asp-for="FromEmail" class="control-label"></label>
+                                <input asp-for="FromEmail" class="form-control" type="email" required />
+                                <div class="invalid-feedback">
+                                    A valid email address is required.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="FromName" class="control-label"></label>
+                                <input asp-for="FromName" class="form-control" required />
+                                <div class="invalid-feedback">
+                                    Name is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label asp-for="Message" class="control-label"></label>
+                                <textarea asp-for="Message" class="form-control" rows="5" required></textarea>
+                                <div class="invalid-feedback">
+                                    Message is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col-md-12">
+                                <button type="button" class="g-recaptcha btn btn-primary" id="submit" data-sitekey="6LeFHhkUAAAAAAByVoICH_Ff3sTUsVECHjomT4b7" data-callback="submitForm">Send</button>
+                            </div>
+                        </div>
+                    </fieldset>
+            </div>
+        </form>
+        }
+        else
+        {
+            if (contactMessage == "Message sent :)")
+            {
+                <div class="alert alert-success" role="alert">Message sent :)</div>
+            }
+            else
+            {
+                <div class="alert alert-danger" role="alert">contactMessage</div>
+            }
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        function submitForm() {
+            var form = document.getElementById('contact-form');
+
+            if (form.checkValidity() === false) {
+                grecaptcha.reset();
+            }
+            else {
+                var formdata = new FormData($('#contact-form').get(0));
+
+                $.ajax({
+                    url: '@Url.Action("Contact", "Home")',
+                    type: 'POST',
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $("body").html(data);
+                        }
+                });
+            }
+
+            form.classList.add('was-validated');
+        }
+    </script>
+}
