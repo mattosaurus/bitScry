@@ -3,8 +3,16 @@
     ViewData["Title"] = "Projects";
 }
 
-<h2>Projects</h2>
-
-<div class="row">
-
+<div class="container">
+    <h2>Projects.</h2>
+    <div class="row">
+        <div class="col">
+            <h2>IP Address Localized Weather</h2>
+            <p>This uses a couple of packages that I put together, <a href="https://github.com/mattosaurus/FreeGeoIPCore" alt="FreeGeoIPCore">one</a> that uses <a href="https://freegeoip.net" alt="FreeGeoIP">FreeGeoIP</a> to get a location for an IP address and <a href="https://github.com/mattosaurus/MetOfficeDataPoint" alt="MetOfficeDataPoint">one</a> that gets weather details from the Met Offices API.</p>
+            <a asp-controller="Weather" asp-action="Index" class="btn btn-primary">Check it Out &raquo;</a>
+            <h2>National Rail Historical Service Performance</h2>
+            <p>This uses a <a href="https://github.com/mattosaurus/NationalRail" alt="NationalRail">package</a> that I created to try and work out when Southern Rail owed me money for being so terrible, it uses the <a href="http://www.nationalrail.co.uk/100296.aspx" alt="National Rail APIs">historical service performance API</a> provided by National Rail</p>
+            <a asp-controller="NationalRail" asp-action="Index" class="btn btn-primary">Check it Out &raquo;</a>
+        </div>
+    </div>
 </div>
