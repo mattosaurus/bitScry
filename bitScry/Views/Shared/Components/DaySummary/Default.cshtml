@@ -4,7 +4,7 @@
 
 @model WeatherSummary
 
-<div class="col-3 col-xs-6 weather-daily img-thumbnail btn btn-outline-dark" role="button" id="summary_@Model.ForecastDay.ToString("yyyyMMdd")">
+<div class="col-3 weather-daily img-thumbnail btn btn-outline-dark" role="button" id="summary_@Model.ForecastDay.ToString("yyyyMMdd")">
     <div class="row">
         <div class="col">
             @Model.ForecastDay.ToString("ddd")

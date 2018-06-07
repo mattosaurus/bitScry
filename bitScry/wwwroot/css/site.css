@@ -15,6 +15,28 @@
 
 /* Weather */
 .weather-main {
+    font-size: 3vw;
+    background-color: white;
+}
+
+.weather-main-temperature {
+    font-size: 2vw;
+}
+
+.weather-daily {
+    font-size: 2vw;
+    background-color: white;
+}
+
+.weather-daily-temperature {
+    font-size: 1vw;
+}
+
+.weather-detailed {
+    font-size: 2vw;
+}
+
+/*.weather-main {
     font-size: 60px;
     background-color: white;
 }
@@ -34,14 +56,14 @@
 
 .weather-detailed {
     font-size: 25px;
-}
+}*/
 
-.datatables-inline-btn {
+/*.datatables-inline-btn {
     display: inline;
     margin-left: 15px;
-}
+}*/
 
-@media screen and (max-width: 568px) {
+/*@media screen and (max-width: 568px) {
     .weather-detailed {
         font-size: 18px;
     }
@@ -63,4 +85,4 @@
         text-align: center;
         margin-bottom: 15px;
     }
-}
+}*/

@@ -18,7 +18,7 @@
 
 <div class="row">
     <div class="clearfix"></div>
-    <div class="col-12 col-xs-6">
+    <div class="col-12 col-md-6">
         <div class="x_panel">
             <div class="x_title">
                 <div class="clearfix"></div>
@@ -28,11 +28,13 @@
                     <div class="row">
                         <div class="col weather-main img-thumbnail btn btn-outline-dark" role="button" id="summary_@weatherSummaries[0].ForecastDay.ToString("yyyyMMdd")">
                             <div class="row">
-                                <div class="col-6 col-md-9">
+                                <div class="col-5">
                                     Today
+                                </div>
+                                <div class="col-3">
                                     <i class="wi @weatherSummaries[0].Icon.Icon wi-fw"></i>
                                 </div>
-                                <div class="col-6 col-md-3 weather-main-temperature">
+                                <div class="col-4">
                                     <div class="row">
                                         <div class="col">
                                             @weatherSummaries[0].MaxTemperature &deg;C
@@ -44,6 +46,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                @*<div class="col-6 col-md-3 weather-main-temperature">
+                                    <div class="row">
+                                        <div class="col">
+                                            @weatherSummaries[0].MaxTemperature &deg;C
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            @weatherSummaries[0].MinTemperature &deg;C
+                                        </div>
+                                    </div>
+                                </div>*@
                             </div>
                         </div>
                     </div>
@@ -66,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-sm-6 d-none" id="details">
+    <div class="col-12 col-md-6 d-none" id="details">
         <div class="x_panel">
             <div class="x_title">
                 <div class="clearfix"></div>
