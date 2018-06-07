@@ -18,7 +18,7 @@
 
 <div class="row">
     <div class="clearfix"></div>
-    <div class="col-lg-6 col-md-6 col-xs-12">
+    <div class="col-12 col-xs-6">
         <div class="x_panel">
             <div class="x_title">
                 <div class="clearfix"></div>
@@ -26,20 +26,20 @@
             <div class="x_content">
                 <div class="jumbotron">
                     <div class="row">
-                        <div class="col-lg-12 weather-main img-thumbnail btn" id="summary_@weatherSummaries[0].ForecastDay.ToString("yyyyMMdd")">
+                        <div class="col weather-main img-thumbnail btn btn-outline-dark" role="button" id="summary_@weatherSummaries[0].ForecastDay.ToString("yyyyMMdd")">
                             <div class="row">
-                                <div class="col-lg-9 col-md-6 col-sm-6 col-xs-6">
+                                <div class="col-6 col-md-9">
                                     Today
                                     <i class="wi @weatherSummaries[0].Icon.Icon wi-fw"></i>
                                 </div>
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 weather-main-temperature">
+                                <div class="col-6 col-md-3 weather-main-temperature">
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col">
                                             @weatherSummaries[0].MaxTemperature &deg;C
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-12">
+                                        <div class="col">
                                             @weatherSummaries[0].MinTemperature &deg;C
                                         </div>
                                     </div>
@@ -53,11 +53,11 @@
                         @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[3] })
                         @await Component.InvokeAsync("DaySummary", new { weatherSummary = weatherSummaries[4] })
                     </div>
-                    @*@await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[0] })
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[0] })
                     @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[1] })
                     @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[2] })
                     @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[3] })
-                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[4] })*@
+                    @await Component.InvokeAsync("DayForecast", new { weatherSummary = weatherSummaries[4] })
                 </div>
                 <p>
                     <button id="locationButton" type="button" class="btn btn-default" onclick="getLocation()">Use Actual Location</button>
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6 col-md-6 col-xs-12 hidden" id="details">
+    <div class="col-12 col-sm-6 d-none" id="details">
         <div class="x_panel">
             <div class="x_title">
                 <div class="clearfix"></div>
@@ -74,7 +74,7 @@
             <div class="x_content">
                 <div class="jumbotron">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col">
                             <h2>IP Details</h2>
                             <p>
                                 IP Address: @location.Ip<br />
@@ -105,14 +105,14 @@
             // Get ID of linked forecast
             var forecastId = $(this).attr('id').replace('summary', 'forecast');
             // Hide all forecasts
-            $('div[id^="forecast_').addClass('hidden');
+            $('div[id^="forecast_').addClass('d-none');
             // Show selected forecast
-            $('#' + forecastId).removeClass('hidden');
+            $('#' + forecastId).removeClass('d-none');
         });
     </script>
     <script type="text/javascript">
         function showDetails() {
-            $('#details').removeClass('hidden');
+            $('#details').removeClass('d-none');
         };
     </script>
     <script type="text/javascript">

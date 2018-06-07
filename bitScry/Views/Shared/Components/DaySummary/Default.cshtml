@@ -4,24 +4,24 @@
 
 @model WeatherSummary
 
-<div class="col-lg-3 col-xs-6 weather-daily img-thumbnail btn" id="summary_@Model.ForecastDay.ToString("yyyyMMdd")">
+<div class="col-3 col-xs-6 weather-daily img-thumbnail btn btn-outline-dark" role="button" id="summary_@Model.ForecastDay.ToString("yyyyMMdd")">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col">
             @Model.ForecastDay.ToString("ddd")
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col">
             <i class="wi @Model.Icon.Icon wi-fw"></i>
         </div>
-        <div class="col-lg-6 weather-daily-temperature">
+        <div class="col weather-daily-temperature">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col">
                     @Model.MaxTemperature &deg;C
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col">
                     @Model.MinTemperature &deg;C
                 </div>
             </div>
