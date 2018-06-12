@@ -1,5 +1,4 @@
 ﻿using bitScry.Models.Projects.Weather;
-using FreeGeoIPCore.AppCode;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System;
@@ -48,6 +47,24 @@ namespace bitScry.AppCode.Projects
                     return (T)Convert.ChangeType(values.ToString(), typeof(T));
             }
             return default(T);
+        }
+
+        public static List<string> SplitCsv(this string csvList, bool nullOrWhitespaceInputReturnsNull = false)
+        {
+            if (string.IsNullOrWhiteSpace(csvList))
+                return nullOrWhitespaceInputReturnsNull ? null : new List<string>();
+
+            return csvList
+                .TrimEnd(',')
+                .Split(',')
+                .AsEnumerable<string>()
+                .Select(s => s.Trim())
+                .ToList();
+        }
+
+        public static bool IsNullOrWhitespace(this string s)
+        {
+            return String.IsNullOrWhiteSpace(s);
         }
 
         public static WeatherIcon GetWeatherIcon(int weatherTypeId)

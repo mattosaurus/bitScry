@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using FreeGeoIPCore;
+using IpStack;
 using MetOfficeDataPoint;
 using MetOfficeDataPoint.Models;
 using MetOfficeDataPoint.Models.GeoCoordinate;
@@ -27,11 +27,11 @@ namespace bitScry.Controllers.Projects
 
         public IActionResult Index(double longitude, double latitude)
         {
-            FreeGeoIPClient ipClient = new FreeGeoIPClient();
+            IpStackClient ipClient = new IpStackClient(_config["Keys:IPStack"]);
 
             string ipAddress = AppCode.Projects.Weather.GetRequestIP(_httpContextAccessor);
 
-            FreeGeoIPCore.Models.Location location = ipClient.GetLocation(ipAddress).Result;
+            IpStack.Models.IpAddressDetails location = ipClient.GetIpAddressDetails(ipAddress);
 
             GeoCoordinate coordinate = new GeoCoordinate();
 

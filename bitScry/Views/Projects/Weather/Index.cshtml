@@ -13,7 +13,7 @@
 @{
     List<WeatherSummary> weatherSummaries = (List<WeatherSummary>)ViewData["WeatherSummaries"];
     MetOfficeDataPoint.Models.Location site = (MetOfficeDataPoint.Models.Location)ViewData["Site"];
-    FreeGeoIPCore.Models.Location location = (FreeGeoIPCore.Models.Location)ViewData["Location"];
+    IpStack.Models.IpAddressDetails location = (IpStack.Models.IpAddressDetails)ViewData["Location"];
 }
 
 <div class="row">
