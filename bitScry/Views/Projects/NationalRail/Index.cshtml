@@ -85,11 +85,11 @@
                     <table id="serviceTable" class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Origin</th>
+                                <th class="d-none d-lg-table-cell">Origin</th>
                                 <th>Destination</th>
                                 <th>Station</th>
-                                <th>Predicted Time of Arrival</th>
-                                <th>Actual Time of Arrival</th>
+                                <th class="d-none d-lg-table-cell">Predicted Time of Arrival</th>
+                                <th class="d-none d-lg-table-cell">Actual Time of Arrival</th>
                                 <th>Predicted Time of Departure</th>
                                 <th>Actual Time of Departure</th>
                                 <th>Delayed</th>
@@ -101,28 +101,28 @@
                             {
                                 @foreach (ServiceDetailsLocation location in detail.ServiceAttributesDetails.Locations)
                                 {
-                                <tr>
-                                    <td>@stations.Find(z => z.CrsCode == services.Find(x => x.ServiceAttributesMetrics.RIDs.Exists(y => y == detail.ServiceAttributesDetails.RID)).ServiceAttributesMetrics.OriginLocation).StationName</td>
-                                    <td>@stations.Find(z => z.CrsCode == services.Find(x => x.ServiceAttributesMetrics.RIDs.Exists(y => y == detail.ServiceAttributesDetails.RID)).ServiceAttributesMetrics.DestinationLocation).StationName</td>
-                                    <td>@stations.Find(x => x.CrsCode == location.Location).StationName</td>
-                                    <td>@location.PredictedTimeOfArrival</td>
-                                    <td>@location.ActualTimeOfArrival</td>
-                                    <td>@location.PredictedTimeOfDeparture</td>
-                                    <td>@location.ActualTimeOfDeparture</td>
-                                    <td>@bitScry.AppCode.Projects.NationalRail.IsDelayed(location, detail.ServiceAttributesDetails.DateOfService)</td>
-                                    @{
-                                        Delay delayReason = delayReasons.Find(z => z.DelayCode == location.LateCancelationReason);
+                                    <tr>
+                                        <td class="d-none d-lg-table-cell">@stations.Find(z => z.CrsCode == services.Find(x => x.ServiceAttributesMetrics.RIDs.Exists(y => y == detail.ServiceAttributesDetails.RID)).ServiceAttributesMetrics.OriginLocation).StationName</td>
+                                        <td>@stations.Find(z => z.CrsCode == services.Find(x => x.ServiceAttributesMetrics.RIDs.Exists(y => y == detail.ServiceAttributesDetails.RID)).ServiceAttributesMetrics.DestinationLocation).StationName</td>
+                                        <td>@stations.Find(x => x.CrsCode == location.Location).StationName</td>
+                                        <td class="d-none d-lg-table-cell">@location.PredictedTimeOfArrival</td>
+                                        <td class="d-none d-lg-table-cell">@location.ActualTimeOfArrival</td>
+                                        <td>@location.PredictedTimeOfDeparture</td>
+                                        <td>@location.ActualTimeOfDeparture</td>
+                                        <td>@bitScry.AppCode.Projects.NationalRail.IsDelayed(location, detail.ServiceAttributesDetails.DateOfService)</td>
+                                        @{
+                                            Delay delayReason = delayReasons.Find(z => z.DelayCode == location.LateCancelationReason);
 
-                                        if (delayReason != null)
-                                        {
-                                            <td>@delayReason.DelayReason</td>
+                                            if (delayReason != null)
+                                            {
+                                                <td>@delayReason.DelayReason</td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
                                         }
-                                        else
-                                        {
-                                            <td></td>
-                                        }
-                                    }
-                                </tr>
+                                    </tr>
                                 }
                             }
                         </tbody>
@@ -148,18 +148,27 @@
     <script src="~/vendor/select2/js/select2.js"></script>
     <script src="~/vendor/datatables.net/jquery.dataTables.js"></script>
     <script src="~/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-
+    <script src="~/vendor/bootstrap-waitingfor/bootstrap-waitingfor.min.js"></script>
     <script type="text/javascript">
-        //$(document).ready(function () {
-        //    $('#FromCrs').select2({
-        //        theme: 'bootstrap4',
-        //        width: ''
-        //    });
-        //    $('#ToCrs').select2({
-        //        theme: 'bootstrap4',
-        //        width: ''
-        //    });
-        //});
+        $(document).ready(function () {
+            $('#FromCrs').select2({
+                theme: 'bootstrap4',
+                width: ''
+            });
+            $('#ToCrs').select2({
+                theme: 'bootstrap4',
+                width: ''
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#submit').click(function () {
+                if (!$('#submit').hasClass('disabled')) {
+                    waitingDialog.show('Fetching Trains');
+                };
+            });
+        });
     </script>
     <script type="text/javascript">
         (function () {

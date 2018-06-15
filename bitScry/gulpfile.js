@@ -43,6 +43,9 @@ var deps = {
         "daterangepicker.css": "",
         "daterangepicker.js": ""
     },
+    "bootstrap-waitingfor": {
+        "build/*": ""
+    },
     "datatables.net": {
         "js/*": ""
     },
