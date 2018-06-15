@@ -1,7 +1,220 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@using bitScry.Models.Projects.NationalRail;
+@using NationalRail.Models.HistoricalServicePerformance;
+@using bitScry.Extensions;
+
+@section head {
+    <link href="~/vendor/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/vendor/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/vendor/select2-bootstrap4-theme/select2-bootstrap4.css" rel="stylesheet" />
+    <link href="~/vendor/datatables.net-bs4/dataTables.bootstrap4.css" rel="stylesheet" />
 }
 
-<h2>Index</h2>
+@{
+    ViewData["Title"] = "National Rail";
+}
 
+@{
+    List<Station> stations = TempData.Get<List<Station>>("Stations");
+    List<Service> services = TempData.Get<List<Service>>("Services");
+    List<ServiceDetailsResponse> details = TempData.Get<List<ServiceDetailsResponse>>("Details");
+    List<Delay> delayReasons = TempData.Get<List<Delay>>("DelayReasons");
+}
+
+@model HistoricalQuery
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-sm-12 col-md-10 col-lg-8 col-xl-6">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col">
+                        <form asp-controller="NationalRail" asp-action="Index" method="post" id="HistoricalForm" data-toggle="validator" role="form" class="needs-validation" novalidate>
+                            <fieldset>
+                                <div class="form-group row">
+                                    <label asp-for="FromCrs" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <select asp-for="FromCrs" asp-items="@(new SelectList(stations, "CrsCode", "StationName"))" class="form-control" required>
+                                            <option selected="selected" value="" disabled>--Please Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A starting station is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="ToCrs" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <select asp-for="ToCrs" asp-items="@(new SelectList(stations, "CrsCode", "StationName"))" class="form-control" required>
+                                            <option selected="selected" value="" disabled>--Please Select--</option>
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A finishing station is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="Date" class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Date" class="form-control" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A travel date is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (details != null)
+{
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">
+                @if (details.Count > 0)
+                {
+                    <table id="serviceTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Origin</th>
+                                <th>Destination</th>
+                                <th>Station</th>
+                                <th>Predicted Time of Arrival</th>
+                                <th>Actual Time of Arrival</th>
+                                <th>Predicted Time of Departure</th>
+                                <th>Actual Time of Departure</th>
+                                <th>Delayed</th>
+                                <th>Late/Canceled Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ServiceDetailsResponse detail in details)
+                            {
+                                @foreach (ServiceDetailsLocation location in detail.ServiceAttributesDetails.Locations)
+                                {
+                                <tr>
+                                    <td>@stations.Find(z => z.CrsCode == services.Find(x => x.ServiceAttributesMetrics.RIDs.Exists(y => y == detail.ServiceAttributesDetails.RID)).ServiceAttributesMetrics.OriginLocation).StationName</td>
+                                    <td>@stations.Find(z => z.CrsCode == services.Find(x => x.ServiceAttributesMetrics.RIDs.Exists(y => y == detail.ServiceAttributesDetails.RID)).ServiceAttributesMetrics.DestinationLocation).StationName</td>
+                                    <td>@stations.Find(x => x.CrsCode == location.Location).StationName</td>
+                                    <td>@location.PredictedTimeOfArrival</td>
+                                    <td>@location.ActualTimeOfArrival</td>
+                                    <td>@location.PredictedTimeOfDeparture</td>
+                                    <td>@location.ActualTimeOfDeparture</td>
+                                    <td>@bitScry.AppCode.Projects.NationalRail.IsDelayed(location, detail.ServiceAttributesDetails.DateOfService)</td>
+                                    @{
+                                        Delay delayReason = delayReasons.Find(z => z.DelayCode == location.LateCancelationReason);
+
+                                        if (delayReason != null)
+                                        {
+                                            <td>@delayReason.DelayReason</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                    }
+                                </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">No trains found for the specified route.</div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="#" id="tableFilter" type="button" role="button" class="btn btn-primary">Show All Trains</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/vendor/moment/moment-with-locales.js"></script>
+    <script src="~/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/vendor/select2/js/select2.js"></script>
+    <script src="~/vendor/datatables.net/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+
+    <script type="text/javascript">
+        //$(document).ready(function () {
+        //    $('#FromCrs').select2({
+        //        theme: 'bootstrap4',
+        //        width: ''
+        //    });
+        //    $('#ToCrs').select2({
+        //        theme: 'bootstrap4',
+        //        width: ''
+        //    });
+        //});
+    </script>
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('input[name="Date"]').daterangepicker({
+                showDropdowns: true,
+                singleDatePicker: true,
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                maxDate: moment().startOf('day')
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#serviceTable').DataTable({
+                "order": [[7, "desc"]]
+            });
+
+            table.column(7).search('True').draw();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tableFilter').click(function () {
+                var table = $('#serviceTable').DataTable();
+
+                if ($('#tableFilter').text() == 'Show All Trains') {
+                    $('#tableFilter').text('Show Only Delayed Trains');
+                    table.column(7).search('').draw();
+                }
+                else {
+                    $('#tableFilter').text('Show All Trains');
+                    table.column(7).search('True').draw();
+                }
+            });
+        });
+    </script>
+}

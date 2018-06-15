@@ -39,10 +39,30 @@ var deps = {
     "bootstrap": {
         "dist/**/*": ""
     },
+    "bootstrap-daterangepicker": {
+        "daterangepicker.css": "",
+        "daterangepicker.js": ""
+    },
+    "datatables.net": {
+        "js/*": ""
+    },
+    "datatables.net-bs4": {
+        "css/*": "",
+        "js/*": ""
+    },
     "jquery": {
         "dist/*": ""
     },
+    "moment": {
+        "min/*": ""
+    },
     "popper.js": {
+        "dist/**/*": ""
+    },
+    "select2": {
+        "dist/**/*": ""
+    },
+    "select2-bootstrap4-theme": {
         "dist/**/*": ""
     },
     "weather-icons": {
