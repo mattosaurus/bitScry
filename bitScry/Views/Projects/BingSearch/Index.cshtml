@@ -1,7 +1,36 @@
-﻿
+﻿@using bitScry.Models.Projects.BingSearch;
+@using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
+@using bitScry.Extensions;
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bing Search";
+    Images images = TempData.Get<Images>("Images");
 }
 
-<h2>Index</h2>
+@model ImageSearchParameters
 
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form asp-controller="BingSearch" asp-action="Index" method="post" id="BingSearch" data-toggle="validator" role="form" class="needs-validation col-lg-6 offset-lg-3" novalidate>
+                <div class="row form-group justify-content-center">
+                    <label>Bing Image Search</label>
+                    <input asp-for="Query" class="form-control" id="Query">
+                </div>
+                <div class="row form-group justify-content-center">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (images != null)
+{
+<div class="container">
+    <div class="row">
+        <div class="col">
+            @await Component.InvokeAsync("BingImageSearchGrid", new { images = images })
+        </div>
+    </div>
+</div>
+}
