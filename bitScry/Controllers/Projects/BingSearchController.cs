@@ -32,8 +32,8 @@ namespace bitScry.Controllers.Projects
         {
             if (!string.IsNullOrEmpty(imageSearchParameters.Query))
             {
-                var client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
-                var imageResults = client.Images.SearchAsync(query: imageSearchParameters.Query, offset: imageSearchParameters.Offset, count: imageSearchParameters.Count).Result;
+                ImageSearchAPI client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
+                Images imageResults = client.Images.SearchAsync(query: imageSearchParameters.Query, offset: imageSearchParameters.Offset, count: imageSearchParameters.Count).Result;
 
                 TempData.Put("Images", imageResults);
             }
@@ -45,6 +45,8 @@ namespace bitScry.Controllers.Projects
         [ActionName("Detail")]
         public IActionResult DetailGet(string imageUrl)
         {
+            Images images = TempData.Get<Images>("Images");
+
             VisionServiceClient visionServiceClient = new VisionServiceClient(_config["Keys:ComputerVision"], "https://northeurope.api.cognitive.microsoft.com/vision/v1.0");
             VisualFeature[] visualFeatures = new VisualFeature[] { VisualFeature.Adult, VisualFeature.Categories, VisualFeature.Color, VisualFeature.Description, VisualFeature.Faces, VisualFeature.ImageType, VisualFeature.Tags };
 

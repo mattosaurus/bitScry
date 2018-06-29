@@ -35,11 +35,11 @@ namespace bitScry
             }
             else
             {
-                // Redirect all HTTP requests to HTTPS
-                RewriteOptions options = new RewriteOptions();
-                options.AddRedirectToHttps();
+                //// Redirect all HTTP requests to HTTPS
+                //RewriteOptions options = new RewriteOptions();
+                //options.AddRedirectToHttps();
 
-                app.UseRewriter(options);
+                //app.UseRewriter(options);
 
                 app.UseExceptionHandler("/Home/Error");
             }
