@@ -9,7 +9,7 @@ namespace bitScry.ViewComponents
 {
     public class BingSearchImageRow : ViewComponent
     {
-        public IViewComponentResult Invoke(Images images)
+        public IViewComponentResult Invoke(List<ImageObject> images)
         {
             return View(images);
         }

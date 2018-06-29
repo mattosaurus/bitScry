@@ -1,1 +1,13 @@
-﻿
+﻿@using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
+@using bitScry.Extensions;
+
+@model List<ImageObject>
+
+<div class="row">
+    <div class="col">
+        @foreach (List<ImageObject> chunk in Model.ChunkBy(4))
+        {
+            @await Component.InvokeAsync("BingSearchImageRow", new { images = chunk })
+        }
+    </div>
+</div>

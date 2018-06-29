@@ -12,7 +12,7 @@ using bitScry.Extensions;
 
 namespace bitScry.Controllers.Projects
 {
-    [Route("Projects/[controller]")]
+    [Route("Projects/[controller]/[action]")]
     public class BingSearchController : Controller
     {
         // https://github.com/Azure-Samples/cognitive-services-dotnet-sdk-samples/tree/master/BingSearchv7/BingImageSearch
@@ -23,23 +23,31 @@ namespace bitScry.Controllers.Projects
             _config = config;
         }
 
-        [HttpGet]
+        [HttpGet("/Projects/[controller]")]
         [ActionName("Index")]
-        public IActionResult IndexGet()
+        public IActionResult IndexGet(ImageSearchParameters imageSearchParameters)
         {
-            return View("~/Views/Projects/BingSearch/Index.cshtml");
+            if (!string.IsNullOrEmpty(imageSearchParameters.Query))
+            {
+                var client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
+                var imageResults = client.Images.SearchAsync(query: imageSearchParameters.Query, offset: imageSearchParameters.Offset, count: imageSearchParameters.Count).Result;
+
+                TempData.Put("Images", imageResults);
+            }
+
+            return View("~/Views/Projects/BingSearch/Index.cshtml", imageSearchParameters);
         }
 
-        [HttpPost]
-        [ActionName("Index")]
-        public IActionResult IndexPost(ImageSearchParameters imageSearchParameters)
+        [HttpGet]
+        [ActionName("Detail")]
+        public IActionResult DetailGet(string query, string insightsToken)
         {
             var client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
-            var imageResults = client.Images.SearchAsync(query: imageSearchParameters.Query).Result;
+            var insights = client.Images.DetailsAsync(query, insightsToken: insightsToken, modules: new List<string>() { "all" }).Result;
 
-            TempData.Put("Images", imageResults);
+            TempData.Put("Insights", insights);
 
-            return View("~/Views/Projects/BingSearch/Index.cshtml");
+            return View("~/Views/Projects/BingSearch/Details.cshtml");
         }
     }
 }

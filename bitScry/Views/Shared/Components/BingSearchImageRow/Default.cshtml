@@ -1,1 +1,10 @@
-﻿
+﻿@using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
+
+@model List<ImageObject>
+
+<div class="row">
+    @foreach (ImageObject image in Model)
+    {
+        @await Component.InvokeAsync("BingSearchImage", new { image = image })
+    }
+</div>

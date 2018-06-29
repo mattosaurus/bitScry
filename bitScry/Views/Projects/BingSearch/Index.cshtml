@@ -12,10 +12,18 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <form asp-controller="BingSearch" asp-action="Index" method="post" id="BingSearch" data-toggle="validator" role="form" class="needs-validation col-lg-6 offset-lg-3" novalidate>
+            <form asp-controller="BingSearch" asp-action="Index" method="get" id="BingSearch" data-toggle="validator" role="form" class="needs-validation col-lg-6 offset-lg-3" novalidate>
                 <div class="row form-group justify-content-center">
                     <label>Bing Image Search</label>
                     <input asp-for="Query" class="form-control" id="Query">
+                </div>
+                <div class="row form-group justify-content-center d-none">
+                    <label>Results to Return</label>
+                    <input asp-for="Count" class="form-control" id="Count" value="36" type="number">
+                </div>
+                <div class="row form-group justify-content-center d-none">
+                    <label>Offset</label>
+                    <input asp-for="Offset" class="form-control" id="Offset" value="0" type="number">
                 </div>
                 <div class="row form-group justify-content-center">
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -26,11 +34,17 @@
 </div>
 @if (images != null)
 {
-<div class="container">
-    <div class="row">
-        <div class="col">
-            @await Component.InvokeAsync("BingImageSearchGrid", new { images = images })
-        </div>
+    <div class="container">
+        @await Component.InvokeAsync("BingSearchImageGrid", new { images = images.Value.ToList() })
     </div>
-</div>
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item @(Model.Offset > 0 ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-count="@Model.Count" asp-route-offset="@(Model.Offset - Model.Count)" asp-route-query="@Model.Query" tabindex="-1" id="Previous">Previous</a>
+            </li>
+            <li class="page-item @(images.Value.Count < Model.Count ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-count="@Model.Count" asp-route-offset="@(Model.Offset + Model.Count)" asp-route-query="@Model.Query" id="Next">Next</a>
+            </li>
+        </ul>
+    </nav>
 }
