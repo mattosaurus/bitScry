@@ -9,6 +9,8 @@ using Microsoft.Azure.CognitiveServices.Search.ImageSearch;
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 using Microsoft.Extensions.Configuration;
 using bitScry.Extensions;
+using Microsoft.ProjectOxford.Vision;
+using Microsoft.ProjectOxford.Vision.Contract;
 
 namespace bitScry.Controllers.Projects
 {
@@ -16,6 +18,7 @@ namespace bitScry.Controllers.Projects
     public class BingSearchController : Controller
     {
         // https://github.com/Azure-Samples/cognitive-services-dotnet-sdk-samples/tree/master/BingSearchv7/BingImageSearch
+        // https://westus.dev.cognitive.microsoft.com/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fa
         private readonly IConfiguration _config;
 
         public BingSearchController(IConfiguration config)
@@ -40,14 +43,16 @@ namespace bitScry.Controllers.Projects
 
         [HttpGet]
         [ActionName("Detail")]
-        public IActionResult DetailGet(string query, string insightsToken)
+        public IActionResult DetailGet(string imageUrl)
         {
-            var client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
-            var insights = client.Images.DetailsAsync(query, insightsToken: insightsToken, modules: new List<string>() { "all" }).Result;
+            VisionServiceClient visionServiceClient = new VisionServiceClient(_config["Keys:ComputerVision"], "https://northeurope.api.cognitive.microsoft.com/vision/v1.0");
+            VisualFeature[] visualFeatures = new VisualFeature[] { VisualFeature.Adult, VisualFeature.Categories, VisualFeature.Color, VisualFeature.Description, VisualFeature.Faces, VisualFeature.ImageType, VisualFeature.Tags };
 
-            TempData.Put("Insights", insights);
+            AnalysisResult analysisResult = visionServiceClient.AnalyzeImageAsync(imageUrl, visualFeatures).Result;
 
-            return View("~/Views/Projects/BingSearch/Details.cshtml");
+            TempData["ImageUrl"] = imageUrl;
+
+            return View("~/Views/Projects/BingSearch/Detail.cshtml", analysisResult);
         }
     }
 }

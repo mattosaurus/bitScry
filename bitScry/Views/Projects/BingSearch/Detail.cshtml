@@ -1,7 +1,66 @@
-﻿
+﻿@using Microsoft.ProjectOxford.Vision.Contract;
+@using bitScry.Extensions;
+
 @{
     ViewData["Title"] = "Detail";
+    string imageUrl = TempData["ImageUrl"].ToString();
 }
 
-<h2>Detail</h2>
+@model AnalysisResult
 
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Description.Captions[0].Text.FirstLetterToUpperCase()</h5>
+                <img class="card-img-top" src="@imageUrl">
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Categories</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Category category in Model.Categories)
+                        {
+                            <tr>
+                                <td>@category.Name</td>
+                                <td>@category.Score</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Tags</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Tag tag in Model.Tags)
+                        {
+                            <tr>
+                                <td>@tag.Name</td>
+                                <td>@tag.Confidence</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

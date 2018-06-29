@@ -4,7 +4,7 @@
 
 <div class="col-xs-12 col-sm-6 col-md-3">
     <div class="card">
-        <a asp-action="Detail" asp-route-insightsToken="@Model.ImageInsightsToken" asp-route-query="@Model.Name" alt="@Model.Name">
+        <a asp-action="Detail" asp-route-imageUrl="@Model.ContentUrl" alt="@Model.Name">
             <img class="card-img-top" src="@Model.ThumbnailUrl" alt="@(Model.AlternateName == null ? "" : Model.AlternateName)">
         </a>
     </div>
