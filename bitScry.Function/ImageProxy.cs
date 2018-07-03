@@ -14,7 +14,7 @@ namespace bitScry.Function
     public static class ImageProxy
     {
         [FunctionName("ImageProxy")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)]HttpRequest req, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req, TraceWriter log)
         {
             log.Info("ImageProxy function processed a request.");
 

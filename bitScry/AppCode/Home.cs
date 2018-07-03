@@ -58,5 +58,22 @@ namespace bitScry.AppCode
             message.TemplateId = templateId;
             SendGrid.Response response = await client.SendEmailAsync(message);
         }
+
+        public static string GetProxyUrl(Uri uri)
+        {
+            string functionUrl = "https://bitscryfunction.azurewebsites.net/api/imageproxy";
+            functionUrl = functionUrl + "?url=" + uri.ToString();
+
+            return functionUrl;
+        }
+
+        public static string GetProxyUrl(Uri uri, string code)
+        {
+            string functionUrl = "https://bitscryfunction.azurewebsites.net/api/imageproxy";
+            functionUrl = functionUrl + "?code=" + code;
+            functionUrl = functionUrl + "&url=" + uri.ToString();
+
+            return functionUrl;
+        }
     }
 }
