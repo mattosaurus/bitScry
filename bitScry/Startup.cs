@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using bitScry.Extensions;
+using bitScry.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,11 +38,11 @@ namespace bitScry
             }
             else
             {
-                //// Redirect all HTTP requests to HTTPS
-                //RewriteOptions options = new RewriteOptions();
-                //options.AddRedirectToHttps();
+                // Redirect all HTTP requests to HTTPS
+                RewriteOptions options = new RewriteOptions();
+                options.AddRedirectToHttps();
 
-                //app.UseRewriter(options);
+                app.UseRewriter(options);
 
                 app.UseExceptionHandler("/Home/Error");
             }
