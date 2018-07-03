@@ -43,7 +43,7 @@ namespace bitScry.Controllers.Projects
 
         [HttpGet]
         [ActionName("Detail")]
-        public IActionResult DetailGet(string imageUrl)
+        public IActionResult DetailGet(string imageUrl, string imageSource)
         {
             Images images = TempData.Get<Images>("Images");
 
@@ -53,6 +53,7 @@ namespace bitScry.Controllers.Projects
             AnalysisResult analysisResult = visionServiceClient.AnalyzeImageAsync(imageUrl, visualFeatures).Result;
 
             TempData["ImageUrl"] = imageUrl;
+            TempData["ImageSource"] = imageSource;
 
             return View("~/Views/Projects/BingSearch/Detail.cshtml", analysisResult);
         }
