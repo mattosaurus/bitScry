@@ -38,7 +38,7 @@ namespace bitScry.Function
 
                 HttpResponseMessage response = new HttpResponseMessage();
                 response.Content = new ByteArrayContent(ImageToByteArray(qrCodeImage));
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
 
                 return response;
             }
