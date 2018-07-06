@@ -1,0 +1,153 @@
+﻿@using bitScry.Models.Projects.PasswordGenerator;
+@using bitScry.Models.Projects.PasswordGenerator.Types;
+
+@{
+    ViewData["Title"] = "Index";
+    WordConfig wordConfig = new WordConfig();
+    StringConfig stringConfig = new StringConfig();
+}
+
+<h2>Password Generator</h2>
+
+<div class="container" id="PasswordGeneratorWordContainer">
+    <div class="row">
+        <div class="col">
+            <form asp-controller="PasswordGenerator" asp-action="Index" method="post" id="PasswordGeneratorWordForm" role="form" class="needs-validation col-lg-6 offset-lg-3" novalidate>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.NumberOfWords" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.NumberOfWords" name="@nameof(wordConfig.NumberOfWords)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.WordLengthMin" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.WordLengthMin" name="@nameof(wordConfig.WordLengthMin)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.NumberOfWords" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.NumberOfWords" name="@nameof(wordConfig.NumberOfWords)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.WordLengthMax" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.WordLengthMax" name="@nameof(wordConfig.WordLengthMax)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.CaseTransform" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <select asp-for="@wordConfig.CaseTransform" name="@nameof(wordConfig.CaseTransform)" asp-items="@Html.GetEnumSelectList<CaseTransform>()" class="form-control" required="required"></select>
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.SeperatorAlpabet" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.SeperatorAlpabet" name="@nameof(wordConfig.SeperatorAlpabet)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PaddingDigitsBefore" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.PaddingDigitsBefore" name="@nameof(wordConfig.PaddingDigitsBefore)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PaddingDigitsAfter" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.PaddingDigitsAfter" name="@nameof(wordConfig.PaddingDigitsAfter)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PaddingType" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <select asp-for="@wordConfig.PaddingType" name="@nameof(wordConfig.PaddingType)" asp-items="@Html.GetEnumSelectList<Padding>()" class="form-control" required="required"></select>
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PadToLength" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.PadToLength" name="@nameof(wordConfig.PadToLength)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PaddingAlphabet" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.PaddingAlphabet" name="@nameof(wordConfig.PaddingAlphabet)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PaddingCharactersBefore" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.PaddingCharactersBefore" name="@nameof(wordConfig.PaddingCharactersBefore)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.PaddingCharactersAfter" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.PaddingCharactersAfter" name="@nameof(wordConfig.PaddingCharactersAfter)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@wordConfig.NumberOfPasswords" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@wordConfig.NumberOfPasswords" name="@nameof(wordConfig.NumberOfPasswords)" class="form-control" required="required">
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Generate passwords</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+    <script type="text/javascript">
+        $("#PasswordGeneratorWordForm").submit(function (event) {
+            var formArray = $(this).serializeArray();
+
+            var configArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                configArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+
+            $.ajax({
+                type: 'post',
+                url: 'https://bitscryfunction.azurewebsites.net/api/PasswordGenerator/Word',
+                dataType: 'json',
+                data: configArray,
+                success: function (data) {
+                    alert(data);
+                }
+            })
+
+            event.preventDefault();
+        });
+    </script>
+}
