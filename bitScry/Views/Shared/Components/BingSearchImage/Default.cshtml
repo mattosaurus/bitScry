@@ -1,11 +1,10 @@
 ﻿@using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
-@using bitScry.AppCode;
 
 @model ImageObject
 
 <div class="col-xs-12 col-sm-6 col-md-3">
     <div class="card">
-        <a asp-action="Detail" asp-route-imageUrl="@Home.GetProxyUrl(new Uri(Model.ContentUrl))" asp-route-imageSource="@Model.HostPageUrl" alt="@Model.Name">
+        <a asp-action="Detail" asp-route-imageUrl="@Model.ContentUrl" asp-route-imageSource="@Model.HostPageUrl" alt="@Model.Name">
             <img class="card-img-top" src="@Model.ThumbnailUrl" alt="@(Model.AlternateName == null ? "" : Model.AlternateName)">
         </a>
     </div>

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.ProjectOxford.Vision.Contract;
 @using bitScry.Extensions;
+@using bitScry.AppCode;
 
 @{
     ViewData["Title"] = "Detail";
@@ -15,7 +16,7 @@
             <div class="card-body">
                 <h5 class="card-title">@Model.Description.Captions[0].Text.FirstLetterToUpperCase()</h5>
                 <a href="@imageSource">
-                    <img class="card-img-top" src="@imageUrl">
+                    <img class="card-img-top" src="@Home.GetProxyUrl(new Uri(imageUrl))">
                 </a>
             </div>
         </div>

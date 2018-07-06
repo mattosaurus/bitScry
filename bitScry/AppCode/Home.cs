@@ -61,7 +61,7 @@ namespace bitScry.AppCode
 
         public static string GetProxyUrl(Uri uri)
         {
-            string functionUrl = "https://function.bitscry/api/imageproxy";
+            string functionUrl = "https://function.bitscry.com/api/imageproxy";
             functionUrl = functionUrl + "?url=" + uri.ToString();
 
             return functionUrl;
@@ -69,7 +69,7 @@ namespace bitScry.AppCode
 
         public static string GetProxyUrl(Uri uri, string code)
         {
-            string functionUrl = "https://function.bitscry/api/imageproxy";
+            string functionUrl = "https://function.bitscry.com/api/imageproxy";
             functionUrl = functionUrl + "?code=" + code;
             functionUrl = functionUrl + "&url=" + uri.ToString();
 
