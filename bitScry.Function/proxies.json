@@ -1,7 +1,7 @@
 ﻿{
   "$schema": "http://json.schemastore.org/proxies",
   "proxies": {
-    "letsencrypt": {
+    "LetsEncrypt": {
       "matchCondition": {
         "route": "/.well-known/acme-challenge/"
       },
