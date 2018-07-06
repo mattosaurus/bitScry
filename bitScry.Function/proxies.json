@@ -5,7 +5,7 @@
       "matchCondition": {
         "route": "/.well-known/acme-challenge/"
       },
-      "backendUri": "https://%WEBSITE_HOSTNAME%/api/letsencrypt/{rest}"
+      "backendUri": "http://%WEBSITE_HOSTNAME%/api/letsencrypt/{rest}"
     }
   }
 }
