@@ -15,7 +15,7 @@ namespace bitScry.Function
     public static class LetsEncrypt
     {
         [FunctionName("LetsEncrypt")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req, string code, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "LetsEncrypt/.well-known/acme-challenge/{code}")]HttpRequest req, string code, TraceWriter log)
         {
             log.Info($"C# HTTP trigger function processed a request. {code}");
 

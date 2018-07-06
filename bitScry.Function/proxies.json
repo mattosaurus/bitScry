@@ -1,11 +1,11 @@
 ﻿{
   "$schema": "http://json.schemastore.org/proxies",
   "proxies": {
-    "LetsEncrypt": {
+    "LetsEncryptProxy": {
       "matchCondition": {
-        "route": "/.well-known/acme-challenge/{*rest}"
+        "route": "/.well-known/acme-challenge/{code}"
       },
-      "backendUri": "http://%WEBSITE_HOSTNAME%/api/letsencrypt/{rest}"
+      "backendUri": "http://%WEBSITE_HOSTNAME%/api/letsencrypt/.well-known/acme-challenge/{code}"
     }
   }
 }
