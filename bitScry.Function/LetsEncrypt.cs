@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace bitScry.Function
     public static class LetsEncrypt
     {
         [FunctionName("LetsEncrypt")]
-        public static async Task<HttpResponseMessage> Run(HttpRequest req, string code, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequest req, string code, TraceWriter log)
         {
             log.Info($"C# HTTP trigger function processed a request. {code}");
 
