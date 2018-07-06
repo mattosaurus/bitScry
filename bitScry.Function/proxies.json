@@ -3,7 +3,7 @@
   "proxies": {
     "LetsEncrypt": {
       "matchCondition": {
-        "route": "/.well-known/acme-challenge/"
+        "route": "/.well-known/acme-challenge/{*rest}"
       },
       "backendUri": "http://%WEBSITE_HOSTNAME%/api/letsencrypt/{rest}"
     }
