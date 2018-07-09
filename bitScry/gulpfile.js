@@ -56,6 +56,9 @@ var deps = {
     "jquery": {
         "dist/*": ""
     },
+    "js-cookie": {
+        "src/*": ""
+    },
     "moment": {
         "min/*": ""
     },

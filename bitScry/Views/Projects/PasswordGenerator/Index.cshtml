@@ -1,18 +1,33 @@
 ﻿@using bitScry.Models.Projects.PasswordGenerator;
 @using bitScry.Models.Projects.PasswordGenerator.Types;
+@using bitScry.Extensions;
 
 @{
-    ViewData["Title"] = "Index";
-    WordConfig wordConfig = new WordConfig();
-    StringConfig stringConfig = new StringConfig();
+    ViewData["Title"] = "Passwords";
+    WordConfig wordConfig = TempData.Get<WordConfig>("WordConfig");
+    StringConfig stringConfig = TempData.Get<StringConfig>("StringConfig");
 }
 
-<h2>Password Generator</h2>
+<div class="container">
+    <div class="row mb-4 mt-4">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-primary active" id="WordButton">
+                    <input type="radio" name="options" autocomplete="off" checked> Word
+                </label>
+                <label class="btn btn-primary" id="StringButton">
+                    <input type="radio" name="options" autocomplete="off"> String
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container" id="PasswordGeneratorWordContainer">
-    <div class="row">
+    <div class="row mb-4">
         <div class="col">
             <form asp-controller="PasswordGenerator" asp-action="Index" method="post" id="PasswordGeneratorWordForm" role="form" class="needs-validation col-lg-6 offset-lg-3" novalidate>
+                <h2 class="text-center">Password Word Generator</h2>
                 <div class="row form-group justify-content-center">
                     <label asp-for="@wordConfig.NumberOfWords" class="col-sm-5 col-form-label"></label>
                     <div class="col-sm-7">
@@ -101,13 +116,104 @@
             </form>
         </div>
     </div>
-    <div class="row">
+    <div class="row d-none col-lg-6 offset-lg-3 form-group" id="PasswordGeneratorWordResultsDiv">
         <div class="col">
+            <h3 class="text-center">Passwords</h3>
+            <textarea id="PasswordGeneratorWordResultsTextarea" class="form-control"></textarea>
+        </div>
+    </div>
+</div>
 
+<div class="container d-none" id="PasswordGeneratorStringContainer">
+    <div class="row mb-4">
+        <div class="col">
+            <form asp-controller="PasswordGenerator" asp-action="Index" method="post" id="PasswordGeneratorStringForm" role="form" class="needs-validation col-lg-6 offset-lg-3" novalidate>
+                <h2 class="text-center">Password String Generator</h2>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.Uppercase" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <label class="switch">
+                            <input asp-for="@stringConfig.Uppercase" name="@nameof(stringConfig.Uppercase)" class="form-control" required="required">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.Lowercase" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <label class="switch">
+                            <input asp-for="@stringConfig.Lowercase" name="@nameof(stringConfig.Lowercase)" class="form-control" required="required">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.Numbers" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <label class="switch">
+                            <input asp-for="@stringConfig.Numbers" name="@nameof(stringConfig.Numbers)" class="form-control" required="required">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.SpecialCharacters" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <label class="switch">
+                            <input asp-for="@stringConfig.SpecialCharacters" name="@nameof(stringConfig.SpecialCharacters)" class="form-control" required="required">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.UppercaseAlphabet" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@stringConfig.UppercaseAlphabet" name="@nameof(stringConfig.UppercaseAlphabet)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.LowercaseAlphabet" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@stringConfig.LowercaseAlphabet" name="@nameof(stringConfig.LowercaseAlphabet)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.NumericAlphabet" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@stringConfig.NumericAlphabet" name="@nameof(stringConfig.NumericAlphabet)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.SpecialCharacterAlphabet" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@stringConfig.SpecialCharacterAlphabet" name="@nameof(stringConfig.SpecialCharacterAlphabet)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.Length" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@stringConfig.NumberOfPasswords" name="@nameof(stringConfig.NumberOfPasswords)" class="form-control" required="required">
+                    </div>
+                </div>
+                <div class="row form-group justify-content-center">
+                    <label asp-for="@stringConfig.NumberOfPasswords" class="col-sm-5 col-form-label"></label>
+                    <div class="col-sm-7">
+                        <input asp-for="@stringConfig.NumberOfPasswords" name="@nameof(stringConfig.NumberOfPasswords)" class="form-control" required="required">
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Generate passwords</button>
+            </form>
+        </div>
+    </div>
+    <div class="row d-none col-lg-6 offset-lg-3 form-group" id="PasswordGeneratorStringResultsDiv">
+        <div class="col">
+            <h3 class="text-center">Passwords</h3>
+            <textarea id="PasswordGeneratorStringResultsTextarea" class="form-control"></textarea>
         </div>
     </div>
 </div>
 @section Scripts {
+    <script src="~/vendor/js-cookie/js.cookie.js"></script>
     <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
@@ -137,17 +243,71 @@
                 configArray[formArray[i]['name']] = formArray[i]['value'];
             }
 
+            Cookies.set('wordConfig', JSON.stringify(configArray));
+
+            event.preventDefault();
+
             $.ajax({
                 type: 'post',
                 url: 'https://function.bitscry.com/api/PasswordGenerator/Word',
                 dataType: 'json',
-                data: configArray,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(configArray),
                 success: function (data) {
-                    alert(data);
+                    displayPasswords('PasswordGeneratorWordResultsTextarea', data);
+                    $('#PasswordGeneratorWordResultsDiv').removeClass('d-none');
                 }
             })
+        });
+    </script>
+    <script type="text/javascript">
+        $("#PasswordGeneratorStringForm").submit(function (event) {
+            var formArray = $(this).serializeArray();
+
+            var configArray = {};
+            for (var i = 0; i < formArray.length; i++) {
+                configArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+
+            // add checkbox false values
+            $(this).find('input:checkbox:not(:checked)').each(function () {
+                configArray[this.name] = false;
+            });
+
+            Cookies.set('stringConfig', JSON.stringify(configArray));
 
             event.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                url: 'https://function.bitscry.com/api/PasswordGenerator/String',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(configArray),
+                success: function (data) {
+                    displayPasswords('PasswordGeneratorStringResultsTextarea', data);
+                    $('#PasswordGeneratorStringResultsDiv').removeClass('d-none');
+                }
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        function displayPasswords(textareaName, data) {
+            var textarea = $('#' + textareaName);
+            textarea.attr('rows', data.length);
+            textarea.val(data.join("\n"));
+        }
+    </script>
+    <script type="text/javascript">
+        $('#WordButton').on('click', function () {
+            $('#PasswordGeneratorStringContainer').addClass('d-none');
+            $('#PasswordGeneratorWordContainer').removeClass('d-none');
+        });
+    </script>
+    <script type="text/javascript">
+        $('#StringButton').on('click', function () {
+            $('#PasswordGeneratorWordContainer').addClass('d-none');
+            $('#PasswordGeneratorStringContainer').removeClass('d-none');
         });
     </script>
 }
