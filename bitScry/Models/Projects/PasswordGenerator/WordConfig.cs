@@ -17,7 +17,7 @@ namespace bitScry.Models.Projects.PasswordGenerator
             WordLengthMin = 4;
             WordLengthMax = 8;
             CaseTransform = CaseTransform.Alternating;
-            SeperatorAlpabet = "!@$%^&*-_+=:|~?/.;";
+            SeperatorAlphabet = "!@$%^&*-_+=:|~?/.;";
             PaddingDigitsBefore = 2;
             PaddingDigitsAfter = 2;
             PaddingType = Padding.Fixed;
@@ -47,7 +47,7 @@ namespace bitScry.Models.Projects.PasswordGenerator
 
         [JsonProperty("seperatorAlphabet")]
         [DisplayName("Seperator Alphabet")]
-        public string SeperatorAlpabet { get; set; }
+        public string SeperatorAlphabet { get; set; }
 
         [JsonProperty("paddingDigitsBefore")]
         [DisplayName("Padding Digits Before")]
