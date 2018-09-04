@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
     <PackageReference Include="NationalRail" Version="1.0.1" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
+    <PackageReference Include="SpotifyAPI-NET" Version="2.19.0" />
   </ItemGroup>
 
   <ItemGroup>
