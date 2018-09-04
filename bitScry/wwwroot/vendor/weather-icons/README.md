@@ -1,39 +1,48 @@
 # Weather Icons
+*Version 1.3 - November 30th, 2014*
 
-## 222 Weather Themed Icons and CSS
+## A free, open source icon-font of Weather icons
 
-Weather Icons is the only icon font and CSS with 222 weather themed icons, ready to be dropped right into [Bootstrap](http://www.getbootstrap.com), or any project that needs high quality weather, maritime, and meteorological based icons!
+Weather Icons is a font of 189 weather themed icons, ready to be dropped right into [Bootstrap](http://www.getbootstrap.com) or any other project. 
 
-Get started at [http://weathericons.io](http://weathericons.io)!
+Inspired by [Font Awesome](http://fontawesome.io/), they work in essentially the same way. They are infinitley scalable and any CSS that can be applied to text can be applied to them. All you need to do to insert an icon is add the base class and the specific icon class to an "i" element:
 
-![Icon Preview](http://i.imgur.com/XmZW2q3.png)
+``<i class="wi wi-day-lightning"></i>``
 
-## Basic Usage
+At this time, there are no other effects/mixins to do advanced icon manipulation yet.
 
-Place the 5 font files and the main `weather-icons.min.css` file in your project, with the assumption that the fonts are located up `../` from your CSS directory.
+![Icon Preview](http://wes.io/WeM5/preview.png)
 
-The icons are displayed by using an `i` element and adding the base class `wi` and then the icon class you want, such as `day-sunny`. This then looks like `<i class="wi wi-day-sunny"></i>`.
+####[View demo and full icon reference](http://erikflowers.github.io/weather-icons/)
 
-To add a modifier, include the class you want after the icon name, which looks like `<i class="wi wi-day-sunny wi-flip-vertical"></i>`. You can flip, rotate, or add a fixed width. See it all at [http://weathericons.io](http://weathericons.io).
+## Getting Started
+Getting started is easy. First, put the fonts in the directory ABOVE your css directory. By default, the fonts are referencing a ../fonts/ folder that is on the same level as /css. This can be changed via the `@WeatherIconPath` variable in variables.less
 
-## API Usage
+Include in your main .less file `weather-icons/weather-icons.less` and that is all you need to do. 
 
-This set includes companion CSS files for popular weather service API. Presently there are mappings for Forecast.io, Open Weather Map, World Meteorological Organization, Weather Underground, and Yahoo. Check the [API List](https://erikflowers.github.io/weather-icons/api-list.html) to see the class names.
+It is best to download the [repo](http://www.github.com/erikflowers/weather-icons) from Github if you want to keep up to date. Please report any issues or requests to the repository here
 
-## Wind Usage
+#### CSS Only Method
+If you just want to add a css file to your project with no Less compiling, you just need to reference the `weather-icons.css` included in the css folder. *If you are not familiar with using Bootstrap, or using Bootstrap in the precompiled Less mode, I would recommend you give it a try)*
 
-To use the wind indicators, you must also use `weather-icons-wind.min.css` along with the default CSS file. To dispay a wind indicator, you must use the base class `wi` and `wi-wind`, and then include the towards/from direction you want, like `from-293-deg`. This ends up looking like . You can use any degree from 0 to 359 in this manner. **Note:** A "from" class has the point of the arrow at the opposite end of the degree. For example, a "from 90 degrees" icon would point to the 270 degree mark, wheras a "towards 270 degrees" would point at the same 270 degree mark.
+## New in version 1.3
+Umbrella, day-windy, night-alt-cloudy, up-left, down-right, day-sleet, night-sleet, night-alt-sleet, sleet, day-haze.
 
-Included in the set as well are aliases to point to cardinal directions. They work the same as degrees, for example `<i class="wi wi-wind towards-sse"></i>` would be an arrow pointing to the South by Southeast (roughly 158 degrees). 
+28 moon phase icons
 
-## Contributing
-If you feel so inclined to add icon ideas, icon art, or other fixes/changes to how the package works, feel free to help!
+12 clock icons
+
+13 Beafort Scale icons
+
+### Collaboration
+If you feel so inclined to add icon ideas, icon art, or other fixes/changes to how the package works, feel free to help! I'd also love it if someone wanted to make this a component as well for bower, npm, component, etc. No idea how to do that myself (yet).
 
 ## Credit
 The icon designs are originally by [Lukas Bischoff](http://www.twitter.com/artill). Icon art for v1.1 forward, HTML, Less, and CSS are by [me (Erik)](http://www.helloerik.com).
 
-## Licensing
+None of this would be  possible without [Bootstrap](http://www.getbootstrap.com), [Font Awesome](http://fontawesome.io/) and [Lukas Bischoff](http://www.twitter.com/artill). I just put it all together into a neat package. Cheatsheet provided by Michael Woywod.
 
-* Weather Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL)
-* Code licensed under [MIT License](http://opensource.org/licenses/mit-license.html)
-* Documentation licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0)
+Weather Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL) &mdash; Code licensed under [MIT License](http://opensource.org/licenses/mit-license.html)  &mdash; Documentation licensed under [CC BY 3.0](http://creativecommons.org/licenses/by/3.0)
+
+## Contact
+Weather Icons is maintained by me, Erik Flowers. Reach me at [@Erik_UX](http://www.twitter.com/Erik_UX) or at [http://www.helloerik.com](http://www.helloerik.com).

@@ -77,10 +77,10 @@ namespace bitScry.Function.AppCode
 
             // Get word seperator
             string seperator = "";
-
-            if (config.SeperatorAlpabet.Length > 0)
+            
+            if (config.SeperatorAlphabet.Length > 0)
             {
-                seperator = config.SeperatorAlpabet.ToArray().GetRandomElement(1).FirstOrDefault().ToString();
+                seperator = config.SeperatorAlphabet.ToArray().GetRandomElement(1).FirstOrDefault().ToString();
             }
 
             // Padding
