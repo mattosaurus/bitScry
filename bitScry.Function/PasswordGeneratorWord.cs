@@ -18,9 +18,24 @@ namespace bitScry.Function
     public static class PasswordGeneratorWord
     {
         [FunctionName("PasswordGeneratorWord")]
-        public static List<string> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "PasswordGenerator/Word")]WordConfig config, HttpRequest req, TraceWriter log, ExecutionContext executionContext)
+        public static List<string> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "PasswordGenerator/Word")]HttpRequest req, TraceWriter log, ExecutionContext executionContext)
         {
             log.Info("PasswordGeneratorWord function processed a request.");
+
+            WordConfig config = new WordConfig();
+
+            string body = req.ReadAsStringAsync().Result;
+
+            if (!string.IsNullOrEmpty(body))
+            {
+                // Deserialize config object from body
+                config = JsonConvert.DeserializeObject<WordConfig>(body);
+            }
+            else
+            {
+                // Deserialize config object from parameters
+                config = JsonConvert.DeserializeObject<WordConfig>(JsonConvert.SerializeObject(req.GetQueryParameterDictionary()));
+            }
 
             List<string> passwords = new List<string>();
 
