@@ -12,15 +12,16 @@ using bitScry.Function.Models.PasswordGenerator;
 using System.Collections.Generic;
 using System.Linq;
 using bitScry.Function.AppCode;
+using Microsoft.Extensions.Logging;
 
 namespace bitScry.Function
 {
     public static class PasswordGeneratorWord
     {
         [FunctionName("PasswordGeneratorWord")]
-        public static List<string> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "PasswordGenerator/Word")]HttpRequest req, TraceWriter log, ExecutionContext executionContext)
+        public static List<string> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "PasswordGenerator/Word")]HttpRequest req, ILogger log, ExecutionContext executionContext)
         {
-            log.Info("PasswordGeneratorWord function processed a request.");
+            log.LogInformation("PasswordGeneratorWord function processed a request.");
 
             WordConfig config = new WordConfig();
 
