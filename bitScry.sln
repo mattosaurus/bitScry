@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bitScry", "bitScry\bitScry.csproj", "{B6EBFB39-4B46-4E02-8ECF-311705BB6AAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bitScry.Function", "bitScry.Function\bitScry.Function.csproj", "{59FE461B-7BA3-47F8-B5A2-C30316C89162}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bitScry.Function", "bitScry.Function\bitScry.Function.csproj", "{59FE461B-7BA3-47F8-B5A2-C30316C89162}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
