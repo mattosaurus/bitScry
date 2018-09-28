@@ -11,6 +11,7 @@ using bitScry.AppCode;
 
 namespace bitScry.Controllers
 {
+    // Trigger build
     public class HomeController : Controller
     {
         private readonly IConfiguration _config;

@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <ApplicationInsightsResourceId>/subscriptions/836a711a-8f87-43a9-9879-c88ed6afc970/resourcegroups/bitScry/providers/microsoft.insights/components/bitScry</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/836a711a-8f87-43a9-9879-c88ed6afc970/resourcegroups/bitScry/providers/microsoft.insights/components/bitScry</ApplicationInsightsAnnotationResourceId>
+    <UserSecretsId>5e4d5b73-eae3-4442-8a0a-375a297c765a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
