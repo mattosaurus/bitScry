@@ -53,6 +53,7 @@ namespace bitScry
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseSerilog()
+                .UseApplicationInsights()
                 .Build();
     }
 }
