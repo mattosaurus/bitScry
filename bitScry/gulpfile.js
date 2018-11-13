@@ -29,7 +29,7 @@ gulp.task("minify-css", function () {
     return gulp.src('wwwroot/css/site.css')
         .pipe(csso())
         .pipe(concat("site.min.css"))
-        .pipe(gulp.dest('wwwroot/lib/site/css'))
+        .pipe(gulp.dest('wwwroot/lib/site/css'));
 });
 
 gulp.task("minify", ['minify-js', 'minify-css']);
@@ -45,6 +45,9 @@ var deps = {
     },
     "bootstrap-waitingfor": {
         "build/*": ""
+    },
+    "chart.js": {
+        "dist/**/*": ""
     },
     "datatables.net": {
         "js/*": ""
