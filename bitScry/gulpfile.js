@@ -46,6 +46,9 @@ var deps = {
     "bootstrap-waitingfor": {
         "build/*": ""
     },
+    "chart.js": {
+        "src/**/*": ""
+    },
     "datatables.net": {
         "js/*": ""
     },
