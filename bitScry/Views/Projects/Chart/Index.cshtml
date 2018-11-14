@@ -9,6 +9,7 @@
     Chart radarChart = (Chart)ViewData["RadarChart"];
     Chart polarChart = (Chart)ViewData["PolarChart"];
     Chart pieChart = (Chart)ViewData["PieChart"];
+    Chart liveLineChart = (Chart)ViewData["LineChart"];
 }
 
 @section head {
@@ -79,6 +80,19 @@
         &nbsp;
     </div>
 </div>
+<div class="row">
+    <div class="card col-md-6">
+        <div class="card-body">
+            <canvas id="liveLineChart"></canvas>
+            <a href="https://github.com/mattosaurus/bitScry/blob/9be48d48ee495f16fe644661c410a0dee3fd85d5/bitScry/Controllers/Projects/ChartController.cs#L292-L313" class="btn btn-primary">View Code</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        &nbsp;
+    </div>
+</div>
 
 @section Scripts {
     <script src="~/vendor/chart.js/Chart.js"></script>
@@ -99,5 +113,17 @@
     </script>
     <script type="text/javascript">
         @Html.Raw(pieChart.CreateChartCode("pieChart"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(liveLineChart.CreateChartCode("liveLineChart"));
+
+        setInterval(function () {
+            // Get chart data
+            $.get('@Url.Action("GetRandomData", "Chart", new { id = 7 })', function (data) {
+                liveLineChart.data.datasets[0].data = data;
+            });
+
+            liveLineChart.update();
+        }, 5000);
     </script>
 }

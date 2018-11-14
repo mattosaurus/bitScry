@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace bitScry.AppCode
@@ -74,6 +75,39 @@ namespace bitScry.AppCode
             functionUrl = functionUrl + "&url=" + uri.ToString();
 
             return functionUrl;
+        }
+
+        public static int GetRandomInteger(int minValue = 0, int maxValue = int.MaxValue)
+        {
+            if (maxValue < minValue)
+            {
+                throw new ArgumentOutOfRangeException("Maximum value must be greater than minimum value");
+            }
+            else if (maxValue == minValue)
+            {
+                return 0;
+            }
+
+            Int64 diff = maxValue - minValue;
+
+            using (RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider())
+            {
+                while (true)
+                {
+                    byte[] fourBytes = new byte[4];
+                    crypto.GetBytes(fourBytes);
+
+                    // Convert that into an uint.
+                    UInt32 scale = BitConverter.ToUInt32(fourBytes, 0);
+
+                    Int64 max = (1 + (Int64)UInt32.MaxValue);
+                    Int64 remainder = max % diff;
+                    if (scale < max - remainder)
+                    {
+                        return (Int32)(minValue + (scale % diff));
+                    }
+                }
+            }
         }
     }
 }
