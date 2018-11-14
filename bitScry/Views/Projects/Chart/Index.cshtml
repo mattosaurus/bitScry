@@ -10,6 +10,7 @@
     Chart polarChart = (Chart)ViewData["PolarChart"];
     Chart pieChart = (Chart)ViewData["PieChart"];
     Chart liveLineChart = (Chart)ViewData["LineChart"];
+    Chart nestedDoughnutChart = (Chart)ViewData["NestedDoughnutChart"];
 }
 
 @section head {
@@ -87,6 +88,12 @@
             <a href="https://github.com/mattosaurus/bitScry/blob/9be48d48ee495f16fe644661c410a0dee3fd85d5/bitScry/Controllers/Projects/ChartController.cs#L292-L313" class="btn btn-primary">View Code</a>
         </div>
     </div>
+    <div class="card col-md-6">
+        <div class="card-body">
+            <canvas id="nestedDoughnutChart"></canvas>
+            <a href="https://github.com/mattosaurus/bitScry/blob/9be48d48ee495f16fe644661c410a0dee3fd85d5/bitScry/Controllers/Projects/ChartController.cs#L292-L313" class="btn btn-primary">View Code</a>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col">
@@ -125,5 +132,8 @@
 
             liveLineChart.update();
         }, 5000);
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(nestedDoughnutChart.CreateChartCode("nestedDoughnutChart"));
     </script>
 }
