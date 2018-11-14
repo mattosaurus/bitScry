@@ -1,35 +1,33 @@
 {
-  "_args": [
-    [
-      "weather-icons@1.3.2",
-      "C:\\Users\\matthewg\\Source\\Repos\\bitScry\\bitScry"
-    ]
-  ],
-  "_from": "weather-icons@1.3.2",
+  "_from": "weather-icons",
   "_id": "weather-icons@1.3.2",
   "_inBundle": false,
   "_integrity": "sha1-isAA+ShYQnJSuAzFega/qCeQCsA=",
   "_location": "/weather-icons",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
+    "type": "tag",
     "registry": true,
-    "raw": "weather-icons@1.3.2",
+    "raw": "weather-icons",
     "name": "weather-icons",
     "escapedName": "weather-icons",
-    "rawSpec": "1.3.2",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "1.3.2"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
+    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/weather-icons/-/weather-icons-1.3.2.tgz",
-  "_spec": "1.3.2",
-  "_where": "C:\\Users\\matthewg\\Source\\Repos\\bitScry\\bitScry",
+  "_shasum": "8ac000f92858427252b80cc57a06bfa827900ac0",
+  "_spec": "weather-icons",
+  "_where": "C:\\Users\\ragsm\\source\\repos\\bitScry\\bitScry",
   "authors": [
     "Erik Flowers <erik@helloerik.com>"
   ],
+  "bundleDependencies": false,
+  "deprecated": false,
   "description": "189 weather themed icons inspired by Font Awesome and ready for Bootstrap",
   "homepage": "http://erikflowers.github.io/weather-icons/",
   "ignore": [
