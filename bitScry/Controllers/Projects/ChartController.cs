@@ -41,6 +41,19 @@ namespace bitScry.Controllers.Projects
             return View("~/Views/Projects/Chart/Index.cshtml");
         }
 
+        [ActionName("GetRandomData")]
+        public int[] GetRandomData(int id)
+        {
+            List<int> data = new List<int>();
+
+            for (int i = 0; i < id; i++)
+            {
+                data.Add(AppCode.Home.GetRandomInteger(0, 100));
+            }
+
+            return data.ToArray();
+        }
+
         private static Chart GenerateBarChart()
         {
             Chart chart = new Chart();
