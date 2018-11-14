@@ -2,7 +2,7 @@
   "_args": [
     [
       "weather-icons@1.3.2",
-      "C:\\Users\\matthewg\\Documents\\Visual Studio 2017\\Projects\\bitScry\\bitScry"
+      "C:\\Users\\matthewg\\Source\\Repos\\bitScry\\bitScry"
     ]
   ],
   "_from": "weather-icons@1.3.2",
@@ -26,7 +26,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/weather-icons/-/weather-icons-1.3.2.tgz",
   "_spec": "1.3.2",
-  "_where": "C:\\Users\\matthewg\\Documents\\Visual Studio 2017\\Projects\\bitScry\\bitScry",
+  "_where": "C:\\Users\\matthewg\\Source\\Repos\\bitScry\\bitScry",
   "authors": [
     "Erik Flowers <erik@helloerik.com>"
   ],
