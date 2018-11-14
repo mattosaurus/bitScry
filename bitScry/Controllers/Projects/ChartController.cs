@@ -30,15 +30,30 @@ namespace bitScry.Controllers.Projects
             Chart radarChart = GenerateRadarChart();
             Chart polarChart = GeneratePolarChart();
             Chart pieChart = GeneratePieChart();
+            Chart nestedDoughnutChart = GenerateNestedDoughnutChart();
 
-            TempData["BarChart"] = barChart.CreateChartCode("barChart");
-            TempData["LineChart"] = lineChart.CreateChartCode("lineChart");
-            TempData["LineScatterChart"] = lineScatterChart.CreateChartCode("lineScatterChart");
-            TempData["RadarChart"] = radarChart.CreateChartCode("radarChart");
-            TempData["PolarChart"] = polarChart.CreateChartCode("polarChart");
-            TempData["PieChart"] = pieChart.CreateChartCode("pieChart");
+            ViewData["BarChart"] = barChart;
+            ViewData["LineChart"] = lineChart;
+            ViewData["LineScatterChart"] = lineScatterChart;
+            ViewData["RadarChart"] = radarChart;
+            ViewData["PolarChart"] = polarChart;
+            ViewData["PieChart"] = pieChart;
+            ViewData["NestedDoughnutChart"] = nestedDoughnutChart;
 
             return View("~/Views/Projects/Chart/Index.cshtml");
+        }
+
+        [ActionName("GetRandomData")]
+        public int[] GetRandomData(int id)
+        {
+            List<int> data = new List<int>();
+
+            for (int i = 0; i < id; i++)
+            {
+                data.Add(AppCode.Home.GetRandomInteger(0, 100));
+            }
+
+            return data.ToArray();
         }
 
         private static Chart GenerateBarChart()
@@ -330,6 +345,82 @@ namespace bitScry.Controllers.Projects
 
             data.Datasets = new List<Dataset>();
             data.Datasets.Add(dataset);
+
+            chart.Data = data;
+
+            return chart;
+        }
+
+        private static Chart GenerateNestedDoughnutChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = "doughnut";
+
+            Data data = new Data();
+            data.Labels = new List<string>() {
+                "resource-group-1",
+                "resource-group-2",
+                "Data Services - Basic Database Days",
+                "Data Services - Basic Database Days",
+                "Azure App Service - Basic Small App Service Hours",
+                "resource-group-2 - Other"
+            };
+
+            PieDataset outerDataset = new PieDataset()
+            {
+                BackgroundColor = new List<string>() {
+                    "#3366CC",
+                    "#DC3912",
+                    "#FF9900",
+                    "#109618",
+                    "#990099",
+                    "#3B3EAC"
+                },
+                HoverBackgroundColor = new List<string>() {
+                    "#3366CC",
+                    "#DC3912",
+                    "#FF9900",
+                    "#109618",
+                    "#990099",
+                    "#3B3EAC"
+                },
+                Data = new List<double>() {
+                    0.0,
+                    0.0,
+                    8.31,
+                    10.43,
+                    84.69,
+                    0.84
+                }
+            };
+
+            PieDataset innerDataset = new PieDataset()
+            {
+                BackgroundColor = new List<string>() {
+                    "#3366CC",
+                    "#DC3912",
+                    "#FF9900",
+                    "#109618",
+                    "#990099",
+                    "#3B3EAC"
+                },
+                HoverBackgroundColor = new List<string>() {
+                    "#3366CC",
+                    "#DC3912",
+                    "#FF9900",
+                    "#109618",
+                    "#990099",
+                    "#3B3EAC"
+                },
+                Data = new List<double>() {
+                    8.31,
+                    95.96
+                }
+            };
+
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(outerDataset);
+            data.Datasets.Add(innerDataset);
 
             chart.Data = data;
 

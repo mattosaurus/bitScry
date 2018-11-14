@@ -1,11 +1,16 @@
-﻿@{
+﻿@using ChartJSCore.Models;
+
+@{
     ViewData["Title"] = "Index";
-    string barChart = TempData["BarChart"].ToString();
-    string lineChart = TempData["LineChart"].ToString();
-    string lineScatterChart = TempData["LineScatterChart"].ToString();
-    string radarChart = TempData["RadarChart"].ToString();
-    string polarChart = TempData["PolarChart"].ToString();
-    string pieChart = TempData["PieChart"].ToString();
+
+    Chart barChart = (Chart)ViewData["BarChart"];
+    Chart lineChart = (Chart)ViewData["LineChart"];
+    Chart lineScatterChart = (Chart)ViewData["LineScatterChart"];
+    Chart radarChart = (Chart)ViewData["RadarChart"];
+    Chart polarChart = (Chart)ViewData["PolarChart"];
+    Chart pieChart = (Chart)ViewData["PieChart"];
+    Chart liveLineChart = (Chart)ViewData["LineChart"];
+    Chart nestedDoughnutChart = (Chart)ViewData["NestedDoughnutChart"];
 }
 
 @section head {
@@ -76,25 +81,59 @@
         &nbsp;
     </div>
 </div>
+<div class="row">
+    <div class="card col-md-6">
+        <div class="card-body">
+            <canvas id="liveLineChart"></canvas>
+            <a href="https://github.com/mattosaurus/bitScry/blob/9be48d48ee495f16fe644661c410a0dee3fd85d5/bitScry/Controllers/Projects/ChartController.cs#L292-L313" class="btn btn-primary">View Code</a>
+        </div>
+    </div>
+    <div class="card col-md-6">
+        <div class="card-body">
+            <canvas id="nestedDoughnutChart"></canvas>
+            <a href="https://github.com/mattosaurus/bitScry/blob/9be48d48ee495f16fe644661c410a0dee3fd85d5/bitScry/Controllers/Projects/ChartController.cs#L292-L313" class="btn btn-primary">View Code</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        &nbsp;
+    </div>
+</div>
 
 @section Scripts {
     <script src="~/vendor/chart.js/Chart.js"></script>
     <script type="text/javascript">
-        @Html.Raw(barChart);
+        @Html.Raw(barChart.CreateChartCode("barChart"));
     </script>
     <script type="text/javascript">
-        @Html.Raw(lineChart);
+        @Html.Raw(lineChart.CreateChartCode("lineChart"));
     </script>
     <script type="text/javascript">
-        @Html.Raw(lineScatterChart);
+        @Html.Raw(lineScatterChart.CreateChartCode("lineScatterChart"));
     </script>
     <script type="text/javascript">
-        @Html.Raw(radarChart);
+        @Html.Raw(radarChart.CreateChartCode("radarChart"));
     </script>
     <script type="text/javascript">
-        @Html.Raw(polarChart);
+        @Html.Raw(polarChart.CreateChartCode("polarChart"));
     </script>
     <script type="text/javascript">
-        @Html.Raw(pieChart);
+        @Html.Raw(pieChart.CreateChartCode("pieChart"));
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(liveLineChart.CreateChartCode("liveLineChart"));
+
+        setInterval(function () {
+            // Get chart data
+            $.get('@Url.Action("GetRandomData", "Chart", new { id = 7 })', function (data) {
+                liveLineChart.data.datasets[0].data = data;
+            });
+
+            liveLineChart.update();
+        }, 5000);
+    </script>
+    <script type="text/javascript">
+        @Html.Raw(nestedDoughnutChart.CreateChartCode("nestedDoughnutChart"));
     </script>
 }
