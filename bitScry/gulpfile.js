@@ -47,7 +47,7 @@ var deps = {
         "build/*": ""
     },
     "chart.js": {
-        "dist/**/*": ""
+        "dist/*": ""
     },
     "datatables.net": {
         "js/*": ""

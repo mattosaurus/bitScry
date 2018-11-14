@@ -31,12 +31,12 @@ namespace bitScry.Controllers.Projects
             Chart polarChart = GeneratePolarChart();
             Chart pieChart = GeneratePieChart();
 
-            TempData["BarChart"] = barChart.CreateChartCode("barChart");
-            TempData["LineChart"] = lineChart.CreateChartCode("lineChart");
-            TempData["LineScatterChart"] = lineScatterChart.CreateChartCode("lineScatterChart");
-            TempData["RadarChart"] = radarChart.CreateChartCode("radarChart");
-            TempData["PolarChart"] = polarChart.CreateChartCode("polarChart");
-            TempData["PieChart"] = pieChart.CreateChartCode("pieChart");
+            ViewData["BarChart"] = barChart;
+            ViewData["LineChart"] = lineChart;
+            ViewData["LineScatterChart"] = lineScatterChart;
+            ViewData["RadarChart"] = radarChart;
+            ViewData["PolarChart"] = polarChart;
+            ViewData["PieChart"] = pieChart;
 
             return View("~/Views/Projects/Chart/Index.cshtml");
         }
