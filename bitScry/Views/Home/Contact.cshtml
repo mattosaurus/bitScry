@@ -19,7 +19,7 @@
         <h2>@ViewData["Title"].</h2>
         @if (string.IsNullOrEmpty(contactMessage))
         {
-        <form asp-controller="Home" asp-action="Contact" method="post" id="contact-form" role="form" class="needs-validation" novalidate>
+            <form asp-controller="Home" asp-action="Contact" method="post" id="contact-form" role="form" class="needs-validation" novalidate>
                 <div class="col-lg-6 col-md-8 col-sm-10">
                     <fieldset>
                         <div class="form-row">
@@ -53,8 +53,8 @@
                             </div>
                         </div>
                     </fieldset>
-            </div>
-        </form>
+                </div>
+            </form>
         }
         else
         {
@@ -79,14 +79,12 @@
                 grecaptcha.reset();
             }
             else {
-                var formdata = new FormData($('#contact-form').get(0));
-
                 $.ajax({
                     url: '@Url.Action("ValidateCaptcha", "Home")?response=' + response,
                     type: 'GET',
                     headers: { 'RequestVerificationToken': getAntiForgeryToken({}) },
                     success: function () {
-                        var formdata = new FormData($('#ContactForm').get(0));
+                        var formdata = new FormData($('#contact-form').get(0));
 
                         $.ajax({
                             url: '@Url.Action("Contact", "Home")',
@@ -108,5 +106,11 @@
 
             form.classList.add('was-validated');
         }
+    </script>
+    <script type="text/javascript">
+        function getAntiForgeryToken() {
+            token = $('input[name=__RequestVerificationToken]').val();
+            return token;
+        };
     </script>
 }
