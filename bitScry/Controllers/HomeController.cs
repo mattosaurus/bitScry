@@ -61,7 +61,7 @@ namespace bitScry.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult ValidateCaptcha(string response)
         {
             if (ReCaptcha.ValidateAsync(response, _config["Google:ReCaptcha:SecretKey"]).Result)
