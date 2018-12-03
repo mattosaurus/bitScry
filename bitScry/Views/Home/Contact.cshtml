@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-row mt-3">
                             <div class="col-md-12">
-                                <button type="button" class="g-recaptcha btn btn-primary" id="submit" data-sitekey="6LeFHhkUAAAAAAByVoICH_Ff3sTUsVECHjomT4b7" data-callback="submitForm">Send</button>
+                                <button type="button" class="g-recaptcha btn btn-primary" id="contactButton" data-sitekey="6LeFHhkUAAAAAAByVoICH_Ff3sTUsVECHjomT4b7" data-callback="submitForm">Send</button>
                             </div>
                         </div>
                     </fieldset>
@@ -72,7 +72,7 @@
 
 @section scripts {
     <script type="text/javascript">
-        function submitForm() {
+        function submitForm(response) {
             var form = document.getElementById('contact-form');
 
             if (form.checkValidity() === false) {
@@ -82,14 +82,27 @@
                 var formdata = new FormData($('#contact-form').get(0));
 
                 $.ajax({
-                    url: '@Url.Action("Contact", "Home")',
-                    type: 'POST',
-                    data: formdata,
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        $("body").html(data);
-                        }
+                    url: '@Url.Action("ValidateCaptcha", "Home")?response=' + response,
+                    type: 'GET',
+                    headers: { 'RequestVerificationToken': getAntiForgeryToken({}) },
+                    success: function () {
+                        var formdata = new FormData($('#ContactForm').get(0));
+
+                        $.ajax({
+                            url: '@Url.Action("Contact", "Home")',
+                            type: 'POST',
+                            headers: { 'RequestVerificationToken': getAntiForgeryToken({}) },
+                            data: formdata,
+                            processData: false,
+                            contentType: false,
+                            success: function (data) {
+                                $("body").html(data);
+                            }
+                        });
+                    },
+                    error: function () {
+                        grecaptcha.reset();
+                    }
                 });
             }
 
