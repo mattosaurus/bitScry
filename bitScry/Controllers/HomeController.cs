@@ -61,6 +61,19 @@ namespace bitScry.Controllers
             return View();
         }
 
+        [ValidateAntiForgeryToken]
+        public IActionResult ValidateCaptcha(string response)
+        {
+            if (ReCaptcha.ValidateAsync(response, _config["Google:ReCaptcha:SecretKey"]).Result)
+            {
+                return new StatusCodeResult(200);
+            }
+            else
+            {
+                return new StatusCodeResult(500);
+            }
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
