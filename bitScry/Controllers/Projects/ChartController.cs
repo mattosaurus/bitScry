@@ -59,7 +59,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GenerateBarChart()
         {
             Chart chart = new Chart();
-            chart.Type = "bar";
+            chart.Type = Enums.ChartType.Bar;
 
             Data data = new Data();
             data.Labels = new List<string>() { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" };
@@ -136,7 +136,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GenerateLineChart()
         {
             Chart chart = new Chart();
-            chart.Type = "line";
+            chart.Type = Enums.ChartType.Line;
 
             Data data = new Data();
             data.Labels = new List<string>() { "January", "February", "March", "April", "May", "June", "July" };
@@ -204,7 +204,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GenerateLineScatterChart()
         {
             Chart chart = new Chart();
-            chart.Type = "line";
+            chart.Type = Enums.ChartType.Line;
 
             Data data = new Data();
 
@@ -266,7 +266,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GenerateRadarChart()
         {
             Chart chart = new Chart();
-            chart.Type = "radar";
+            chart.Type = Enums.ChartType.Radar;
 
             Data data = new Data();
             data.Labels = new List<string>() { "Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running" };
@@ -307,7 +307,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GeneratePolarChart()
         {
             Chart chart = new Chart();
-            chart.Type = "polarArea";
+            chart.Type = Enums.ChartType.PolarArea;
 
             Data data = new Data();
             data.Labels = new List<string>() { "Red", "Green", "Yellow", "Grey", "Blue" };
@@ -330,7 +330,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GeneratePieChart()
         {
             Chart chart = new Chart();
-            chart.Type = "pie";
+            chart.Type = Enums.ChartType.Pie;
 
             Data data = new Data();
             data.Labels = new List<string>() { "Red", "Blue", "Yellow" };
@@ -354,7 +354,7 @@ namespace bitScry.Controllers.Projects
         private static Chart GenerateNestedDoughnutChart()
         {
             Chart chart = new Chart();
-            chart.Type = "doughnut";
+            chart.Type = Enums.ChartType.Doughnut;
 
             Data data = new Data();
             data.Labels = new List<string>() {
