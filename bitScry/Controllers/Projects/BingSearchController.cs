@@ -32,7 +32,7 @@ namespace bitScry.Controllers.Projects
         {
             if (!string.IsNullOrEmpty(imageSearchParameters.Query))
             {
-                ImageSearchAPI client = new ImageSearchAPI(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
+                ImageSearchClient client = new ImageSearchClient(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
                 Images imageResults = client.Images.SearchAsync(query: imageSearchParameters.Query, offset: imageSearchParameters.Offset, count: imageSearchParameters.Count).Result;
 
                 TempData.Put("Images", imageResults);
