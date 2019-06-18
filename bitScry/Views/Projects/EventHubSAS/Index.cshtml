@@ -1,0 +1,148 @@
+﻿@using bitScry.Models.Projects.EventHubSAS;
+
+@{
+    ViewData["Title"] = "Event Hub SAS";
+}
+
+@model EventHubSASDetails
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-sm-12 col-md-10 col-lg-8">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col">
+                        <form asp-controller="EventHubSAS" asp-action="Index" method="post" id="EventHubSASForm" data-toggle="validator" role="form" class="needs-validation" novalidate>
+                            <fieldset>
+                                <div class="form-group row">
+                                    <label asp-for="SenderKeyName" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="SenderKeyName" class="form-control" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A sender key name is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="SenderKey" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="SenderKey" class="form-control" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A sender key is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="ServiceNamespace" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="ServiceNamespace" class="form-control" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A service namespace is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="HubName" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="HubName" class="form-control" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        A hub name is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="PublisherName" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="PublisherName" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="TokenTimeToLiveSeconds" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="TokenTimeToLiveSeconds" class="form-control" required />
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Token time to live is required.
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model != null && Model.SecurityToken != null)
+{
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-sm-12 col-md-10 col-lg-8">
+            <h4>Security Token</h4>
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col">
+                        <form data-toggle="validator" role="form">
+                            <fieldset>
+                                <div class="form-group row">
+                                    <label asp-for="SecurityToken.Audience" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="SecurityToken.Audience" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="SecurityToken.ExpiresAtUtc" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="SecurityToken.ExpiresAtUtc" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="SecurityToken.TokenType" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="SecurityToken.TokenType" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label asp-for="SecurityToken.TokenValue" class="col-sm-4 col-form-label"></label>
+                                    <div class="col-sm-8">
+                                        <input asp-for="SecurityToken.TokenValue" class="form-control" required />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+}
