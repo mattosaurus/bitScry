@@ -9,8 +9,8 @@ using Microsoft.Azure.CognitiveServices.Search.ImageSearch;
 using Microsoft.Azure.CognitiveServices.Search.ImageSearch.Models;
 using Microsoft.Extensions.Configuration;
 using bitScry.Extensions;
-using Microsoft.ProjectOxford.Vision;
-using Microsoft.ProjectOxford.Vision.Contract;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 
 namespace bitScry.Controllers.Projects
 {
@@ -32,7 +32,7 @@ namespace bitScry.Controllers.Projects
         {
             if (!string.IsNullOrEmpty(imageSearchParameters.Query))
             {
-                ImageSearchClient client = new ImageSearchClient(new ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
+                ImageSearchClient client = new ImageSearchClient(new Microsoft.Azure.CognitiveServices.Search.ImageSearch.ApiKeyServiceClientCredentials(_config["Keys:BingSearch"]));
                 Images imageResults = client.Images.SearchAsync(query: imageSearchParameters.Query, offset: imageSearchParameters.Offset, count: imageSearchParameters.Count).Result;
 
                 TempData.Put("Images", imageResults);
@@ -43,19 +43,27 @@ namespace bitScry.Controllers.Projects
 
         [HttpGet]
         [ActionName("Detail")]
-        public IActionResult DetailGet(string imageUrl, string imageSource)
+        public async Task<IActionResult> DetailGet(string imageUrl, string imageSource)
         {
-            Images images = TempData.Get<Images>("Images");
+            ComputerVisionClient computerVision = new ComputerVisionClient(new Microsoft.Azure.CognitiveServices.Vision.ComputerVision.ApiKeyServiceClientCredentials(_config["Keys:ComputerVision"]));
+            List<VisualFeatureTypes> visualFeatures = new List<VisualFeatureTypes>()
+            {
+                VisualFeatureTypes.Adult,
+                VisualFeatureTypes.Categories,
+                VisualFeatureTypes.Color,
+                VisualFeatureTypes.Description,
+                VisualFeatureTypes.Faces,
+                VisualFeatureTypes.ImageType,
+                VisualFeatureTypes.Tags
+            };
+            computerVision.Endpoint = "https://northeurope.api.cognitive.microsoft.com";
 
-            VisionServiceClient visionServiceClient = new VisionServiceClient(_config["Keys:ComputerVision"], "https://northeurope.api.cognitive.microsoft.com/vision/v1.0");
-            VisualFeature[] visualFeatures = new VisualFeature[] { VisualFeature.Adult, VisualFeature.Categories, VisualFeature.Color, VisualFeature.Description, VisualFeature.Faces, VisualFeature.ImageType, VisualFeature.Tags };
-
-            AnalysisResult analysisResult = visionServiceClient.AnalyzeImageAsync(imageUrl, visualFeatures).Result;
+            ImageAnalysis imageAnalysis = await computerVision.AnalyzeImageAsync(imageUrl, visualFeatures);
 
             TempData["ImageUrl"] = imageUrl;
             TempData["ImageSource"] = imageSource;
 
-            return View("~/Views/Projects/BingSearch/Detail.cshtml", analysisResult);
+            return View("~/Views/Projects/BingSearch/Detail.cshtml", imageAnalysis);
         }
     }
 }
