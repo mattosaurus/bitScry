@@ -15,7 +15,7 @@
                         <form asp-controller="EventHubSAS" asp-action="Index" method="post" id="EventHubSASForm" data-toggle="validator" role="form" class="needs-validation" novalidate>
                             <fieldset>
                                 <div class="form-group row">
-                                    <label asp-for="SenderKeyName" class="col-sm-4 col-form-label"></label>
+                                    <label asp-for="SenderKeyName" class="col-sm-4 col-form-label" title="The name of the Namespace Shared Access Policy in the portal" data-toggle="tooltip"></label>
                                     <div class="col-sm-8">
                                         <input asp-for="SenderKeyName" class="form-control" required />
                                     </div>
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label asp-for="SenderKey" class="col-sm-4 col-form-label"></label>
+                                    <label asp-for="SenderKey" class="col-sm-4 col-form-label" title="The key of the Namespace Shared Access Policy in the portal" data-toggle="tooltip"></label>
                                     <div class="col-sm-8">
                                         <input asp-for="SenderKey" class="form-control" required />
                                     </div>
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label asp-for="ServiceNamespace" class="col-sm-4 col-form-label"></label>
+                                    <label asp-for="ServiceNamespace" class="col-sm-4 col-form-label" title="Your Service Bus Namespace" data-toggle="tooltip"></label>
                                     <div class="col-sm-8">
                                         <input asp-for="ServiceNamespace" class="form-control" required />
                                     </div>
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label asp-for="HubName" class="col-sm-4 col-form-label"></label>
+                                    <label asp-for="HubName" class="col-sm-4 col-form-label" title="The name of your Event Hub" data-toggle="tooltip"></label>
                                     <div class="col-sm-8">
                                         <input asp-for="HubName" class="form-control" required />
                                     </div>
@@ -51,13 +51,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label asp-for="PublisherName" class="col-sm-4 col-form-label"></label>
+                                    <label asp-for="PublisherName" class="col-sm-4 col-form-label" title="The name of the Publisher (this is something you can make up, but should be unique for each device)" data-toggle="tooltip"></label>
                                     <div class="col-sm-8">
                                         <input asp-for="PublisherName" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label asp-for="TokenTimeToLiveSeconds" class="col-sm-4 col-form-label"></label>
+                                    <label asp-for="TokenTimeToLiveSeconds" class="col-sm-4 col-form-label" title="Should be very long for devices that can't renew tokens and less for devices that can update their tokens" data-toggle="tooltip"></label>
                                     <div class="col-sm-8">
                                         <input asp-for="TokenTimeToLiveSeconds" class="form-control" required />
                                     </div>
@@ -82,47 +82,47 @@
 
 @if (Model != null && Model.SecurityToken != null)
 {
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col col-sm-12 col-md-10 col-lg-8">
-            <h4>Security Token</h4>
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col">
-                        <form data-toggle="validator" role="form">
-                            <fieldset>
-                                <div class="form-group row">
-                                    <label asp-for="SecurityToken.Audience" class="col-sm-4 col-form-label"></label>
-                                    <div class="col-sm-8">
-                                        <input asp-for="SecurityToken.Audience" class="form-control" />
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-sm-12 col-md-10 col-lg-8">
+                <h4>Security Token</h4>
+                <div class="jumbotron">
+                    <div class="row">
+                        <div class="col">
+                            <form data-toggle="validator" role="form">
+                                <fieldset>
+                                    <div class="form-group row">
+                                        <label asp-for="SecurityToken.Audience" class="col-sm-4 col-form-label"></label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="SecurityToken.Audience" class="form-control" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label asp-for="SecurityToken.ExpiresAtUtc" class="col-sm-4 col-form-label"></label>
-                                    <div class="col-sm-8">
-                                        <input asp-for="SecurityToken.ExpiresAtUtc" class="form-control" />
+                                    <div class="form-group row">
+                                        <label asp-for="SecurityToken.ExpiresAtUtc" class="col-sm-4 col-form-label"></label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="SecurityToken.ExpiresAtUtc" class="form-control" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label asp-for="SecurityToken.TokenType" class="col-sm-4 col-form-label"></label>
-                                    <div class="col-sm-8">
-                                        <input asp-for="SecurityToken.TokenType" class="form-control" />
+                                    <div class="form-group row">
+                                        <label asp-for="SecurityToken.TokenType" class="col-sm-4 col-form-label"></label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="SecurityToken.TokenType" class="form-control" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label asp-for="SecurityToken.TokenValue" class="col-sm-4 col-form-label"></label>
-                                    <div class="col-sm-8">
-                                        <input asp-for="SecurityToken.TokenValue" class="form-control" required />
+                                    <div class="form-group row">
+                                        <label asp-for="SecurityToken.TokenValue" class="col-sm-4 col-form-label"></label>
+                                        <div class="col-sm-8">
+                                            <input asp-for="SecurityToken.TokenValue" class="form-control" required />
+                                        </div>
                                     </div>
-                                </div>
-                            </fieldset>
-                        </form>
+                                </fieldset>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }
 
 @section Scripts {
@@ -144,5 +144,10 @@
                 });
             }, false);
         })();
+    </script>
+    <script type="text/javascript">
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 }
